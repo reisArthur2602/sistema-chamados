@@ -1,0 +1,89 @@
+generator client {
+    provider = "prisma-client"
+    output   = "../src/app/generated"
+}
+
+datasource db {
+    provider = "mysql"
+}
+
+enum Role {
+    Admin
+    Membro
+}
+
+enum StatusChamado {
+    aberto
+    em_atendimento
+    resolvido
+    fechado
+    cancelado
+}
+
+model Usuario {
+    id           String   @id @db.VarChar(36)
+    nome         String   @db.VarChar(255)
+    usuario      String   @unique @db.VarChar(100)
+    senhaHash    String   @map("senha_hash") @db.VarChar(255)
+    role         Role
+    ativo        Boolean  @default(true)
+    criadoEm     DateTime @default(now()) @map("criado_em")
+    atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+    chamadosAbertos    Chamado[]    @relation("ChamadosAbertos")
+    chamadosAtribuidos Chamado[]    @relation("ChamadosAtribuidos")
+    comentarios        Comentario[]
+    anexos             Anexo[]
+
+    @@map("usuarios")
+}
+
+model Chamado {
+    id           String            @id @db.VarChar(36)
+    titulo       String            @db.VarChar(255)
+    descricao    String            @db.Text
+    status       StatusChamado @default(aberto)
+    ativo        Boolean       @default(true)
+    criadoEm     DateTime          @default(now()) @map("criado_em")
+    atualizadoEm DateTime          @updatedAt @map("atualizado_em")
+
+    abertoPorId     String  @map("aberto_por") @db.VarChar(36)
+    atribuidoParaId String? @map("atribuido_para") @db.VarChar(36)
+
+    abertoPor     Usuario  @relation("ChamadosAbertos", fields: [abertoPorId], references: [id])
+    atribuidoPara Usuario? @relation("ChamadosAtribuidos", fields: [atribuidoParaId], references: [id])
+
+    comentarios Comentario[]
+    anexos      Anexo[]
+
+    @@map("chamados")
+}
+
+model Comentario {
+    id       String   @id @db.VarChar(36)
+    mensagem String   @db.Text
+    criadoEm DateTime @default(now()) @map("criado_em")
+
+    chamadoId String @map("chamado_id") @db.VarChar(36)
+    usuarioId String @map("usuario_id") @db.VarChar(36)
+
+    chamado Chamado @relation(fields: [chamadoId], references: [id], onDelete: Cascade)
+    usuario Usuario @relation(fields: [usuarioId], references: [id])
+
+    @@map("comentarios_chamados")
+}
+
+model Anexo {
+    id             String   @id @db.VarChar(36)
+    caminhoArquivo String   @map("caminho_arquivo") @db.VarChar(500)
+    nomeArquivo    String   @map("nome_arquivo") @db.VarChar(255)
+    criadoEm       DateTime @default(now()) @map("criado_em")
+
+    chamadoId    String @map("chamado_id") @db.VarChar(36)
+    enviadoPorId String @map("enviado_por") @db.VarChar(36)
+
+    chamado    Chamado @relation(fields: [chamadoId], references: [id], onDelete: Cascade)
+    enviadoPor Usuario @relation(fields: [enviadoPorId], references: [id])
+
+    @@map("anexos_chamados")
+}
