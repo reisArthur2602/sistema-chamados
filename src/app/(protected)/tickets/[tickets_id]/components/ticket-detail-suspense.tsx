@@ -7,8 +7,8 @@ export default function TicketDetailSuspense() {
             <div>
                 <Skeleton className="mb-3 h-4 w-24" />
                 <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                        <Skeleton className="h-8 w-96" />
+                    <div className="flex flex-wrap items-center gap-3">
+                        <Skeleton className="h-8 w-48 sm:w-96" />
                         <Skeleton className="h-5 w-28 rounded-full" />
                     </div>
                     <Skeleton className="h-8 w-20 rounded-md" />
@@ -16,7 +16,7 @@ export default function TicketDetailSuspense() {
             </div>
 
             {/* Body */}
-            <div className="flex gap-6">
+            <div className="flex flex-col gap-6 lg:flex-row">
                 {/* Left column */}
                 <div className="flex flex-1 flex-col gap-6">
                     {/* Description card */}
@@ -50,7 +50,7 @@ export default function TicketDetailSuspense() {
                 </div>
 
                 {/* Right sidebar */}
-                <div className="w-64 flex-none">
+                <div className="w-full lg:w-64 lg:flex-none">
                     <div className="space-y-4 rounded-lg border p-6">
                         <Skeleton className="h-5 w-24" />
                         <Skeleton className="h-5 w-20 rounded-full" />

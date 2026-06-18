@@ -104,7 +104,7 @@ export function CreateUserDialog() {
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                    <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+                    <div className="grid grid-cols-1 gap-x-4 gap-y-5 sm:grid-cols-2">
                         <Field className="col-span-2" data-invalid={!!errors.nome}>
                             <FieldLabel htmlFor="nome">Nome completo</FieldLabel>
                             <Input id="nome" placeholder="Ex: João Silva" {...register('nome')} />

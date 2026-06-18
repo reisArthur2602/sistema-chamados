@@ -8,6 +8,8 @@ const envSchema = z.object({
     DATABASE_HOST:     z.string().min(1, { message: 'DATABASE_HOST é obrigatório' }),
     DATABASE_PORT:     z.coerce.number().int().positive({ message: 'DATABASE_PORT deve ser um número positivo' }),
     NODE_ENV:          z.enum(['development', 'production', 'test']).default('development'),
+    VAPID_PRIVATE_KEY: z.string().min(1, { message: 'VAPID_PRIVATE_KEY é obrigatório' }),
+    VAPID_SUBJECT:     z.string().min(1, { message: 'VAPID_SUBJECT é obrigatório' }),
 });
 
 export type EnvType = z.infer<typeof envSchema>;
@@ -20,4 +22,6 @@ export const env = envSchema.parse({
     DATABASE_HOST:     process.env.DATABASE_HOST,
     DATABASE_PORT:     process.env.DATABASE_PORT,
     NODE_ENV:          process.env.NODE_ENV,
+    VAPID_PRIVATE_KEY: process.env.VAPID_PRIVATE_KEY,
+    VAPID_SUBJECT:     process.env.VAPID_SUBJECT,
 });

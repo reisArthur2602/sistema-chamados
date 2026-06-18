@@ -54,7 +54,8 @@ export const ModelName = {
   Usuario: 'Usuario',
   Chamado: 'Chamado',
   Comentario: 'Comentario',
-  Anexo: 'Anexo'
+  Anexo: 'Anexo',
+  PushSubscription: 'PushSubscription'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -125,6 +126,18 @@ export const AnexoScalarFieldEnum = {
 export type AnexoScalarFieldEnum = (typeof AnexoScalarFieldEnum)[keyof typeof AnexoScalarFieldEnum]
 
 
+export const PushSubscriptionScalarFieldEnum = {
+  id: 'id',
+  endpoint: 'endpoint',
+  p256dh: 'p256dh',
+  auth: 'auth',
+  criadoEm: 'criadoEm',
+  usuarioId: 'usuarioId'
+} as const
+
+export type PushSubscriptionScalarFieldEnum = (typeof PushSubscriptionScalarFieldEnum)[keyof typeof PushSubscriptionScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -181,4 +194,15 @@ export const AnexoOrderByRelevanceFieldEnum = {
 } as const
 
 export type AnexoOrderByRelevanceFieldEnum = (typeof AnexoOrderByRelevanceFieldEnum)[keyof typeof AnexoOrderByRelevanceFieldEnum]
+
+
+export const PushSubscriptionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  endpoint: 'endpoint',
+  p256dh: 'p256dh',
+  auth: 'auth',
+  usuarioId: 'usuarioId'
+} as const
+
+export type PushSubscriptionOrderByRelevanceFieldEnum = (typeof PushSubscriptionOrderByRelevanceFieldEnum)[keyof typeof PushSubscriptionOrderByRelevanceFieldEnum]
 

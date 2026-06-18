@@ -37,3 +37,8 @@ export type Comentario = Prisma.ComentarioModel
  * 
  */
 export type Anexo = Prisma.AnexoModel
+/**
+ * Model PushSubscription
+ * 
+ */
+export type PushSubscription = Prisma.PushSubscriptionModel

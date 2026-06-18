@@ -124,7 +124,7 @@ export async function TicketDetailData({ id }: { id: string }) {
                     Chamados
                 </Link>
 
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                     <div className="flex flex-wrap items-center gap-3">
                         <h1 className="font-title text-2xl font-semibold tracking-tight">
                             {chamado.titulo}
@@ -138,7 +138,7 @@ export async function TicketDetailData({ id }: { id: string }) {
             </div>
 
             {/* Body */}
-            <div className="flex gap-6">
+            <div className="flex flex-col gap-6 lg:flex-row">
                 {/* Left column */}
                 <div className="flex min-w-0 flex-1 flex-col gap-6">
                     <Card>
@@ -202,7 +202,7 @@ export async function TicketDetailData({ id }: { id: string }) {
                 </div>
 
                 {/* Right sidebar */}
-                <div className="w-64 flex-none">
+                <div className="w-full lg:w-64 lg:flex-none">
                     <Card>
                         <CardHeader className="pb-3">
                             <CardTitle className="text-base">Informações</CardTitle>

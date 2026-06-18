@@ -30,10 +30,11 @@ model Usuario {
     criadoEm     DateTime @default(now()) @map("criado_em")
     atualizadoEm DateTime @updatedAt @map("atualizado_em")
 
-    chamadosAbertos    Chamado[]    @relation("ChamadosAbertos")
-    chamadosAtribuidos Chamado[]    @relation("ChamadosAtribuidos")
+    chamadosAbertos    Chamado[]          @relation("ChamadosAbertos")
+    chamadosAtribuidos Chamado[]          @relation("ChamadosAtribuidos")
     comentarios        Comentario[]
     anexos             Anexo[]
+    pushSubscriptions  PushSubscription[]
 
     @@map("usuarios")
 }
@@ -86,4 +87,17 @@ model Anexo {
     enviadoPor Usuario @relation(fields: [enviadoPorId], references: [id])
 
     @@map("anexos_chamados")
+}
+
+model PushSubscription {
+    id        String   @id @db.VarChar(36)
+    endpoint  String   @unique @db.VarChar(500)
+    p256dh    String   @db.VarChar(255)
+    auth      String   @db.VarChar(100)
+    criadoEm  DateTime @default(now()) @map("criado_em")
+
+    usuarioId String  @map("usuario_id") @db.VarChar(36)
+    usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+    @@map("push_subscriptions")
 }

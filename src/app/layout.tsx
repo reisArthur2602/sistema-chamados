@@ -14,8 +14,11 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-    title: 'Sistema de Chamados',
-    description: 'Sistema de gerenciamento de chamados',
+    title: {
+        default: 'Sistema de Chamados',
+        template: '%s | Sistema de Chamados',
+    },
+    description: 'Plataforma de gerenciamento e acompanhamento de chamados.',
 };
 
 export default function RootLayout({

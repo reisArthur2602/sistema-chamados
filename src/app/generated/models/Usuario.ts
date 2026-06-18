@@ -210,6 +210,7 @@ export type UsuarioWhereInput = {
   chamadosAtribuidos?: Prisma.ChamadoListRelationFilter
   comentarios?: Prisma.ComentarioListRelationFilter
   anexos?: Prisma.AnexoListRelationFilter
+  pushSubscriptions?: Prisma.PushSubscriptionListRelationFilter
 }
 
 export type UsuarioOrderByWithRelationInput = {
@@ -225,6 +226,7 @@ export type UsuarioOrderByWithRelationInput = {
   chamadosAtribuidos?: Prisma.ChamadoOrderByRelationAggregateInput
   comentarios?: Prisma.ComentarioOrderByRelationAggregateInput
   anexos?: Prisma.AnexoOrderByRelationAggregateInput
+  pushSubscriptions?: Prisma.PushSubscriptionOrderByRelationAggregateInput
   _relevance?: Prisma.UsuarioOrderByRelevanceInput
 }
 
@@ -244,6 +246,7 @@ export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   chamadosAtribuidos?: Prisma.ChamadoListRelationFilter
   comentarios?: Prisma.ComentarioListRelationFilter
   anexos?: Prisma.AnexoListRelationFilter
+  pushSubscriptions?: Prisma.PushSubscriptionListRelationFilter
 }, "id" | "usuario">
 
 export type UsuarioOrderByWithAggregationInput = {
@@ -287,6 +290,7 @@ export type UsuarioCreateInput = {
   chamadosAtribuidos?: Prisma.ChamadoCreateNestedManyWithoutAtribuidoParaInput
   comentarios?: Prisma.ComentarioCreateNestedManyWithoutUsuarioInput
   anexos?: Prisma.AnexoCreateNestedManyWithoutEnviadoPorInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateInput = {
@@ -302,6 +306,7 @@ export type UsuarioUncheckedCreateInput = {
   chamadosAtribuidos?: Prisma.ChamadoUncheckedCreateNestedManyWithoutAtribuidoParaInput
   comentarios?: Prisma.ComentarioUncheckedCreateNestedManyWithoutUsuarioInput
   anexos?: Prisma.AnexoUncheckedCreateNestedManyWithoutEnviadoPorInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUpdateInput = {
@@ -317,6 +322,7 @@ export type UsuarioUpdateInput = {
   chamadosAtribuidos?: Prisma.ChamadoUpdateManyWithoutAtribuidoParaNestedInput
   comentarios?: Prisma.ComentarioUpdateManyWithoutUsuarioNestedInput
   anexos?: Prisma.AnexoUpdateManyWithoutEnviadoPorNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateInput = {
@@ -332,6 +338,7 @@ export type UsuarioUncheckedUpdateInput = {
   chamadosAtribuidos?: Prisma.ChamadoUncheckedUpdateManyWithoutAtribuidoParaNestedInput
   comentarios?: Prisma.ComentarioUncheckedUpdateManyWithoutUsuarioNestedInput
   anexos?: Prisma.AnexoUncheckedUpdateManyWithoutEnviadoPorNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateManyInput = {
@@ -490,6 +497,20 @@ export type UsuarioUpdateOneRequiredWithoutAnexosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutAnexosInput, Prisma.UsuarioUpdateWithoutAnexosInput>, Prisma.UsuarioUncheckedUpdateWithoutAnexosInput>
 }
 
+export type UsuarioCreateNestedOneWithoutPushSubscriptionsInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutPushSubscriptionsInput, Prisma.UsuarioUncheckedCreateWithoutPushSubscriptionsInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutPushSubscriptionsInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutPushSubscriptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutPushSubscriptionsInput, Prisma.UsuarioUncheckedCreateWithoutPushSubscriptionsInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutPushSubscriptionsInput
+  upsert?: Prisma.UsuarioUpsertWithoutPushSubscriptionsInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutPushSubscriptionsInput, Prisma.UsuarioUpdateWithoutPushSubscriptionsInput>, Prisma.UsuarioUncheckedUpdateWithoutPushSubscriptionsInput>
+}
+
 export type UsuarioCreateWithoutChamadosAbertosInput = {
   id: string
   nome: string
@@ -502,6 +523,7 @@ export type UsuarioCreateWithoutChamadosAbertosInput = {
   chamadosAtribuidos?: Prisma.ChamadoCreateNestedManyWithoutAtribuidoParaInput
   comentarios?: Prisma.ComentarioCreateNestedManyWithoutUsuarioInput
   anexos?: Prisma.AnexoCreateNestedManyWithoutEnviadoPorInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutChamadosAbertosInput = {
@@ -516,6 +538,7 @@ export type UsuarioUncheckedCreateWithoutChamadosAbertosInput = {
   chamadosAtribuidos?: Prisma.ChamadoUncheckedCreateNestedManyWithoutAtribuidoParaInput
   comentarios?: Prisma.ComentarioUncheckedCreateNestedManyWithoutUsuarioInput
   anexos?: Prisma.AnexoUncheckedCreateNestedManyWithoutEnviadoPorInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutChamadosAbertosInput = {
@@ -535,6 +558,7 @@ export type UsuarioCreateWithoutChamadosAtribuidosInput = {
   chamadosAbertos?: Prisma.ChamadoCreateNestedManyWithoutAbertoPorInput
   comentarios?: Prisma.ComentarioCreateNestedManyWithoutUsuarioInput
   anexos?: Prisma.AnexoCreateNestedManyWithoutEnviadoPorInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutChamadosAtribuidosInput = {
@@ -549,6 +573,7 @@ export type UsuarioUncheckedCreateWithoutChamadosAtribuidosInput = {
   chamadosAbertos?: Prisma.ChamadoUncheckedCreateNestedManyWithoutAbertoPorInput
   comentarios?: Prisma.ComentarioUncheckedCreateNestedManyWithoutUsuarioInput
   anexos?: Prisma.AnexoUncheckedCreateNestedManyWithoutEnviadoPorInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutChamadosAtribuidosInput = {
@@ -579,6 +604,7 @@ export type UsuarioUpdateWithoutChamadosAbertosInput = {
   chamadosAtribuidos?: Prisma.ChamadoUpdateManyWithoutAtribuidoParaNestedInput
   comentarios?: Prisma.ComentarioUpdateManyWithoutUsuarioNestedInput
   anexos?: Prisma.AnexoUpdateManyWithoutEnviadoPorNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutChamadosAbertosInput = {
@@ -593,6 +619,7 @@ export type UsuarioUncheckedUpdateWithoutChamadosAbertosInput = {
   chamadosAtribuidos?: Prisma.ChamadoUncheckedUpdateManyWithoutAtribuidoParaNestedInput
   comentarios?: Prisma.ComentarioUncheckedUpdateManyWithoutUsuarioNestedInput
   anexos?: Prisma.AnexoUncheckedUpdateManyWithoutEnviadoPorNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUpsertWithoutChamadosAtribuidosInput = {
@@ -618,6 +645,7 @@ export type UsuarioUpdateWithoutChamadosAtribuidosInput = {
   chamadosAbertos?: Prisma.ChamadoUpdateManyWithoutAbertoPorNestedInput
   comentarios?: Prisma.ComentarioUpdateManyWithoutUsuarioNestedInput
   anexos?: Prisma.AnexoUpdateManyWithoutEnviadoPorNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutChamadosAtribuidosInput = {
@@ -632,6 +660,7 @@ export type UsuarioUncheckedUpdateWithoutChamadosAtribuidosInput = {
   chamadosAbertos?: Prisma.ChamadoUncheckedUpdateManyWithoutAbertoPorNestedInput
   comentarios?: Prisma.ComentarioUncheckedUpdateManyWithoutUsuarioNestedInput
   anexos?: Prisma.AnexoUncheckedUpdateManyWithoutEnviadoPorNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateWithoutComentariosInput = {
@@ -646,6 +675,7 @@ export type UsuarioCreateWithoutComentariosInput = {
   chamadosAbertos?: Prisma.ChamadoCreateNestedManyWithoutAbertoPorInput
   chamadosAtribuidos?: Prisma.ChamadoCreateNestedManyWithoutAtribuidoParaInput
   anexos?: Prisma.AnexoCreateNestedManyWithoutEnviadoPorInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutComentariosInput = {
@@ -660,6 +690,7 @@ export type UsuarioUncheckedCreateWithoutComentariosInput = {
   chamadosAbertos?: Prisma.ChamadoUncheckedCreateNestedManyWithoutAbertoPorInput
   chamadosAtribuidos?: Prisma.ChamadoUncheckedCreateNestedManyWithoutAtribuidoParaInput
   anexos?: Prisma.AnexoUncheckedCreateNestedManyWithoutEnviadoPorInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutComentariosInput = {
@@ -690,6 +721,7 @@ export type UsuarioUpdateWithoutComentariosInput = {
   chamadosAbertos?: Prisma.ChamadoUpdateManyWithoutAbertoPorNestedInput
   chamadosAtribuidos?: Prisma.ChamadoUpdateManyWithoutAtribuidoParaNestedInput
   anexos?: Prisma.AnexoUpdateManyWithoutEnviadoPorNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutComentariosInput = {
@@ -704,6 +736,7 @@ export type UsuarioUncheckedUpdateWithoutComentariosInput = {
   chamadosAbertos?: Prisma.ChamadoUncheckedUpdateManyWithoutAbertoPorNestedInput
   chamadosAtribuidos?: Prisma.ChamadoUncheckedUpdateManyWithoutAtribuidoParaNestedInput
   anexos?: Prisma.AnexoUncheckedUpdateManyWithoutEnviadoPorNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateWithoutAnexosInput = {
@@ -718,6 +751,7 @@ export type UsuarioCreateWithoutAnexosInput = {
   chamadosAbertos?: Prisma.ChamadoCreateNestedManyWithoutAbertoPorInput
   chamadosAtribuidos?: Prisma.ChamadoCreateNestedManyWithoutAtribuidoParaInput
   comentarios?: Prisma.ComentarioCreateNestedManyWithoutUsuarioInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutAnexosInput = {
@@ -732,6 +766,7 @@ export type UsuarioUncheckedCreateWithoutAnexosInput = {
   chamadosAbertos?: Prisma.ChamadoUncheckedCreateNestedManyWithoutAbertoPorInput
   chamadosAtribuidos?: Prisma.ChamadoUncheckedCreateNestedManyWithoutAtribuidoParaInput
   comentarios?: Prisma.ComentarioUncheckedCreateNestedManyWithoutUsuarioInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutAnexosInput = {
@@ -762,6 +797,7 @@ export type UsuarioUpdateWithoutAnexosInput = {
   chamadosAbertos?: Prisma.ChamadoUpdateManyWithoutAbertoPorNestedInput
   chamadosAtribuidos?: Prisma.ChamadoUpdateManyWithoutAtribuidoParaNestedInput
   comentarios?: Prisma.ComentarioUpdateManyWithoutUsuarioNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutAnexosInput = {
@@ -776,6 +812,83 @@ export type UsuarioUncheckedUpdateWithoutAnexosInput = {
   chamadosAbertos?: Prisma.ChamadoUncheckedUpdateManyWithoutAbertoPorNestedInput
   chamadosAtribuidos?: Prisma.ChamadoUncheckedUpdateManyWithoutAtribuidoParaNestedInput
   comentarios?: Prisma.ComentarioUncheckedUpdateManyWithoutUsuarioNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioCreateWithoutPushSubscriptionsInput = {
+  id: string
+  nome: string
+  usuario: string
+  senhaHash: string
+  role: $Enums.Role
+  ativo?: boolean
+  criadoEm?: Date | string
+  atualizadoEm?: Date | string
+  chamadosAbertos?: Prisma.ChamadoCreateNestedManyWithoutAbertoPorInput
+  chamadosAtribuidos?: Prisma.ChamadoCreateNestedManyWithoutAtribuidoParaInput
+  comentarios?: Prisma.ComentarioCreateNestedManyWithoutUsuarioInput
+  anexos?: Prisma.AnexoCreateNestedManyWithoutEnviadoPorInput
+}
+
+export type UsuarioUncheckedCreateWithoutPushSubscriptionsInput = {
+  id: string
+  nome: string
+  usuario: string
+  senhaHash: string
+  role: $Enums.Role
+  ativo?: boolean
+  criadoEm?: Date | string
+  atualizadoEm?: Date | string
+  chamadosAbertos?: Prisma.ChamadoUncheckedCreateNestedManyWithoutAbertoPorInput
+  chamadosAtribuidos?: Prisma.ChamadoUncheckedCreateNestedManyWithoutAtribuidoParaInput
+  comentarios?: Prisma.ComentarioUncheckedCreateNestedManyWithoutUsuarioInput
+  anexos?: Prisma.AnexoUncheckedCreateNestedManyWithoutEnviadoPorInput
+}
+
+export type UsuarioCreateOrConnectWithoutPushSubscriptionsInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutPushSubscriptionsInput, Prisma.UsuarioUncheckedCreateWithoutPushSubscriptionsInput>
+}
+
+export type UsuarioUpsertWithoutPushSubscriptionsInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutPushSubscriptionsInput, Prisma.UsuarioUncheckedUpdateWithoutPushSubscriptionsInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutPushSubscriptionsInput, Prisma.UsuarioUncheckedCreateWithoutPushSubscriptionsInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutPushSubscriptionsInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutPushSubscriptionsInput, Prisma.UsuarioUncheckedUpdateWithoutPushSubscriptionsInput>
+}
+
+export type UsuarioUpdateWithoutPushSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nome?: Prisma.StringFieldUpdateOperationsInput | string
+  usuario?: Prisma.StringFieldUpdateOperationsInput | string
+  senhaHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  ativo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  atualizadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chamadosAbertos?: Prisma.ChamadoUpdateManyWithoutAbertoPorNestedInput
+  chamadosAtribuidos?: Prisma.ChamadoUpdateManyWithoutAtribuidoParaNestedInput
+  comentarios?: Prisma.ComentarioUpdateManyWithoutUsuarioNestedInput
+  anexos?: Prisma.AnexoUpdateManyWithoutEnviadoPorNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutPushSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nome?: Prisma.StringFieldUpdateOperationsInput | string
+  usuario?: Prisma.StringFieldUpdateOperationsInput | string
+  senhaHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  ativo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  atualizadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chamadosAbertos?: Prisma.ChamadoUncheckedUpdateManyWithoutAbertoPorNestedInput
+  chamadosAtribuidos?: Prisma.ChamadoUncheckedUpdateManyWithoutAtribuidoParaNestedInput
+  comentarios?: Prisma.ComentarioUncheckedUpdateManyWithoutUsuarioNestedInput
+  anexos?: Prisma.AnexoUncheckedUpdateManyWithoutEnviadoPorNestedInput
 }
 
 
@@ -788,6 +901,7 @@ export type UsuarioCountOutputType = {
   chamadosAtribuidos: number
   comentarios: number
   anexos: number
+  pushSubscriptions: number
 }
 
 export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -795,6 +909,7 @@ export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   chamadosAtribuidos?: boolean | UsuarioCountOutputTypeCountChamadosAtribuidosArgs
   comentarios?: boolean | UsuarioCountOutputTypeCountComentariosArgs
   anexos?: boolean | UsuarioCountOutputTypeCountAnexosArgs
+  pushSubscriptions?: boolean | UsuarioCountOutputTypeCountPushSubscriptionsArgs
 }
 
 /**
@@ -835,6 +950,13 @@ export type UsuarioCountOutputTypeCountAnexosArgs<ExtArgs extends runtime.Types.
   where?: Prisma.AnexoWhereInput
 }
 
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountPushSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PushSubscriptionWhereInput
+}
+
 
 export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -849,6 +971,7 @@ export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   chamadosAtribuidos?: boolean | Prisma.Usuario$chamadosAtribuidosArgs<ExtArgs>
   comentarios?: boolean | Prisma.Usuario$comentariosArgs<ExtArgs>
   anexos?: boolean | Prisma.Usuario$anexosArgs<ExtArgs>
+  pushSubscriptions?: boolean | Prisma.Usuario$pushSubscriptionsArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["usuario"]>
 
@@ -871,6 +994,7 @@ export type UsuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   chamadosAtribuidos?: boolean | Prisma.Usuario$chamadosAtribuidosArgs<ExtArgs>
   comentarios?: boolean | Prisma.Usuario$comentariosArgs<ExtArgs>
   anexos?: boolean | Prisma.Usuario$anexosArgs<ExtArgs>
+  pushSubscriptions?: boolean | Prisma.Usuario$pushSubscriptionsArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -881,6 +1005,7 @@ export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     chamadosAtribuidos: Prisma.$ChamadoPayload<ExtArgs>[]
     comentarios: Prisma.$ComentarioPayload<ExtArgs>[]
     anexos: Prisma.$AnexoPayload<ExtArgs>[]
+    pushSubscriptions: Prisma.$PushSubscriptionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1235,6 +1360,7 @@ export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends runtime.
   chamadosAtribuidos<T extends Prisma.Usuario$chamadosAtribuidosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$chamadosAtribuidosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChamadoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comentarios<T extends Prisma.Usuario$comentariosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$comentariosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   anexos<T extends Prisma.Usuario$anexosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$anexosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnexoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  pushSubscriptions<T extends Prisma.Usuario$pushSubscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$pushSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1713,6 +1839,30 @@ export type Usuario$anexosArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.AnexoScalarFieldEnum | Prisma.AnexoScalarFieldEnum[]
+}
+
+/**
+ * Usuario.pushSubscriptions
+ */
+export type Usuario$pushSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PushSubscription
+   */
+  select?: Prisma.PushSubscriptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PushSubscription
+   */
+  omit?: Prisma.PushSubscriptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PushSubscriptionInclude<ExtArgs> | null
+  where?: Prisma.PushSubscriptionWhereInput
+  orderBy?: Prisma.PushSubscriptionOrderByWithRelationInput | Prisma.PushSubscriptionOrderByWithRelationInput[]
+  cursor?: Prisma.PushSubscriptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PushSubscriptionScalarFieldEnum | Prisma.PushSubscriptionScalarFieldEnum[]
 }
 
 /**
