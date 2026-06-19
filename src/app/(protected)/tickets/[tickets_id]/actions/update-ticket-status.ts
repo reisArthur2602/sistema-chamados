@@ -25,7 +25,7 @@ export async function updateTicketStatus(id: string, status: StatusChamado) {
         targets.add(ticket.atribuidoParaId);
     }
 
-    Promise.allSettled(
+    await Promise.allSettled(
         [...targets].map((userId) =>
             sendPushToUser(userId, {
                 title: 'Chamado atualizado',

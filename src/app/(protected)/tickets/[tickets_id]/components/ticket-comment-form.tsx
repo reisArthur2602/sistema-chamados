@@ -30,6 +30,7 @@ export function TicketCommentForm({ chamadoId }: TicketCommentFormProps) {
         formState: { errors, isSubmitting },
     } = useForm<FormValues>({
         resolver: zodResolver(schema),
+        defaultValues: { mensagem: '' },
     });
 
     async function onSubmit(data: FormValues) {

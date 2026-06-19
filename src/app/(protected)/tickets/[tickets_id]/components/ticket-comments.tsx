@@ -5,13 +5,16 @@ import { formatDateTime } from '@/utils/format-date';
 import { getInitials } from '@/utils/get-initials';
 import type { TicketDetail } from '../actions/get-ticket';
 import { TicketCommentForm } from './ticket-comment-form';
+import type { StatusChamado } from '@/app/generated/enums';
 
 interface TicketCommentsProps {
     chamadoId: string;
+    status: StatusChamado;
     comentarios: TicketDetail['comentarios'];
 }
 
-export function TicketComments({ chamadoId, comentarios }: TicketCommentsProps) {
+export function TicketComments({ chamadoId, status, comentarios }: TicketCommentsProps) {
+    const podecomentar = status === 'em_atendimento' || status === 'resolvido';
     return (
         <Card>
             <CardHeader>
@@ -25,13 +28,13 @@ export function TicketComments({ chamadoId, comentarios }: TicketCommentsProps) 
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-                {comentarios.length === 0 ? (
-                    <p className="py-4 text-center text-sm text-muted-foreground">
-                        Nenhum comentário ainda.
-                    </p>
-                ) : (
-                    <div className="space-y-5">
-                        {comentarios.map((c) => (
+                <div className="space-y-5">
+                    {comentarios.length === 0 ? (
+                        <p className="py-4 text-center text-sm text-muted-foreground">
+                            Nenhum comentário ainda.
+                        </p>
+                    ) : (
+                        comentarios.map((c) => (
                             <div key={c.id} className="flex gap-3">
                                 <Avatar className="size-8 shrink-0">
                                     <AvatarFallback className="text-xs">
@@ -52,12 +55,20 @@ export function TicketComments({ chamadoId, comentarios }: TicketCommentsProps) 
                                     </p>
                                 </div>
                             </div>
-                        ))}
-                    </div>
-                )}
+                        ))
+                    )}
+                </div>
 
                 <Separator />
-                <TicketCommentForm chamadoId={chamadoId} />
+                {podecomentar ? (
+                    <TicketCommentForm chamadoId={chamadoId} />
+                ) : (
+                    <p className="py-2 text-center text-sm text-muted-foreground">
+                        {status === 'aberto'
+                            ? 'O chamado precisa ser aceito antes de comentar.'
+                            : 'Não é possível comentar em um chamado encerrado.'}
+                    </p>
+                )}
             </CardContent>
         </Card>
     );

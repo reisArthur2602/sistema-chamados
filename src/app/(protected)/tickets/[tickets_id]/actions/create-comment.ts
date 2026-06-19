@@ -1,7 +1,7 @@
 'use server';
 
-import { sendPushToUser } from '@/lib/web-push';
 import type { PushPayload } from '@/lib/web-push';
+import { sendPushToUser } from '@/lib/web-push';
 import { prisma } from '@/lib/prisma';
 import { requireAuth } from '@/utils/require-auth';
 import { revalidatePath } from 'next/cache';
@@ -9,22 +9,20 @@ import { revalidatePath } from 'next/cache';
 export async function createComment(chamadoId: string, mensagem: string) {
     const session = await requireAuth();
 
+    const ticket = await prisma.chamado.findUniqueOrThrow({
+        where: { id: chamadoId },
+        select: { status: true, titulo: true, abertoPorId: true, atribuidoParaId: true },
+    });
+
+    if (ticket.status !== 'em_atendimento' && ticket.status !== 'resolvido') {
+        throw new Error('Não é possível comentar neste chamado.');
+    }
+
     await prisma.comentario.create({
-        data: {
-            chamadoId,
-            usuarioId: session.id,
-            mensagem,
-        },
+        data: { chamadoId, usuarioId: session.id, mensagem },
     });
 
     revalidatePath(`/tickets/${chamadoId}`);
-
-    const ticket = await prisma.chamado.findUnique({
-        where: { id: chamadoId },
-        select: { titulo: true, abertoPorId: true, atribuidoParaId: true },
-    });
-
-    if (!ticket) return;
 
     const payload: PushPayload = {
         title: 'Novo comentário no chamado',
@@ -38,5 +36,5 @@ export async function createComment(chamadoId: string, mensagem: string) {
         targets.add(ticket.atribuidoParaId);
     }
 
-    Promise.allSettled([...targets].map((userId) => sendPushToUser(userId, payload)));
+    await Promise.allSettled([...targets].map((userId) => sendPushToUser(userId, payload)));
 }
