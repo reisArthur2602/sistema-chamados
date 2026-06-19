@@ -14,7 +14,7 @@ interface TicketCommentsProps {
 export function TicketComments({ chamadoId, comentarios }: TicketCommentsProps) {
     return (
         <Card>
-            <CardHeader className="pb-3">
+            <CardHeader>
                 <CardTitle className="text-base">
                     Comentários
                     {comentarios.length > 0 && (
@@ -40,7 +40,9 @@ export function TicketComments({ chamadoId, comentarios }: TicketCommentsProps) 
                                 </Avatar>
                                 <div className="min-w-0 flex-1">
                                     <div className="flex items-center gap-2">
-                                        <span className="text-sm font-medium">{c.usuario.nome}</span>
+                                        <span className="text-sm font-medium">
+                                            {c.usuario.nome}
+                                        </span>
                                         <span className="text-xs text-muted-foreground">
                                             {formatDateTime(c.criadoEm)}
                                         </span>

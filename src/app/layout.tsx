@@ -15,10 +15,10 @@ const geist = Geist({
 
 export const metadata: Metadata = {
     title: {
-        default: 'Sistema de Chamados',
-        template: '%s | Sistema de Chamados',
+        default: 'Nexo',
+        template: '%s | Nexo',
     },
-    description: 'Plataforma de gerenciamento e acompanhamento de chamados.',
+    description: 'Plataforma de atendimento e gestão de chamados internos.',
 };
 
 export default function RootLayout({

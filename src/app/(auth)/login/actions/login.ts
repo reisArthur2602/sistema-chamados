@@ -2,8 +2,8 @@
 
 import { SESSION_COOKIE } from '@/constants';
 import { env } from '@/env';
-import { checkRateLimit } from '@/lib/rate-limit';
 import { prisma } from '@/lib/prisma';
+import { checkRateLimit } from '@/lib/rate-limit';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { cookies, headers } from 'next/headers';
@@ -15,7 +15,10 @@ interface LoginInput {
 
 export async function login(input: LoginInput) {
     const headersList = await headers();
-    const ip = headersList.get('x-forwarded-for')?.split(',')[0] ?? headersList.get('x-real-ip') ?? 'unknown';
+    const ip =
+        headersList.get('x-forwarded-for')?.split(',')[0] ??
+        headersList.get('x-real-ip') ??
+        'unknown';
 
     const allowed = checkRateLimit(`login:${ip}`, 5, 15 * 60 * 1000);
     if (!allowed) {
@@ -24,7 +27,7 @@ export async function login(input: LoginInput) {
 
     const user = await prisma.usuario.findUnique({
         where: { usuario: input.usuario },
-        select: { id: true, nome: true, role: true, senhaHash: true, ativo: true },
+        select: { id: true, nome: true, role: true, senhaHash: true, usuario: true, ativo: true },
     });
 
     if (!user || !user.ativo) {
@@ -36,9 +39,13 @@ export async function login(input: LoginInput) {
         return { ok: false, message: 'Credenciais inválidas' };
     }
 
-    const token = sign({ id: user.id, nome: user.nome, role: user.role }, env.JWT_SECRET, {
-        expiresIn: '8h',
-    });
+    const token = sign(
+        { id: user.id, nome: user.nome, role: user.role, usuario: user.usuario },
+        env.JWT_SECRET,
+        {
+            expiresIn: '8h',
+        }
+    );
 
     const cookieStore = await cookies();
     cookieStore.set(SESSION_COOKIE, token, {

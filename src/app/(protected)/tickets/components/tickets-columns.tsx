@@ -56,9 +56,12 @@ export const ticketColumns = (currentUserId: string): ColumnDef<TicketRow>[] => 
             const { id, nome } = row.original.abertoPor;
             return (
                 <div className="flex items-center gap-2">
-                    <span className="text-sm text-muted-foreground">{nome}</span>
-                    {id === currentUserId && (
-                        <Badge variant="secondary" className="text-xs">Você</Badge>
+                    {id === currentUserId ? (
+                        <Badge variant="secondary" className="text-xs">
+                            Você
+                        </Badge>
+                    ) : (
+                        <span className="text-sm text-muted-foreground">{nome}</span>
                     )}
                 </div>
             );

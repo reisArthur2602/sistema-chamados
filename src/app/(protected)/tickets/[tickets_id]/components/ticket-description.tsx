@@ -7,7 +7,7 @@ interface TicketDescriptionProps {
 export function TicketDescription({ descricao }: TicketDescriptionProps) {
     return (
         <Card>
-            <CardHeader className="pb-3">
+            <CardHeader>
                 <CardTitle className="text-base">Descrição</CardTitle>
             </CardHeader>
             <CardContent>

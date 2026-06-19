@@ -1,10 +1,11 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
+import { LogoMark } from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -40,10 +41,12 @@ export function LoginForm() {
     }
 
     return (
-        <Card className="w-full max-w-sm">
-            <CardHeader>
-                <CardTitle className="font-title text-xl">Entrar</CardTitle>
-                <CardDescription>Acesse o sistema com suas credenciais</CardDescription>
+        <Card className="w-full shadow-lg border-border/60">
+            <CardHeader className="items-center pb-4 text-center">
+                <LogoMark size={44} className="mx-auto" />
+
+                <CardTitle className="font-title text-xl">Chamados</CardTitle>
+                <CardDescription>Acesse com suas credenciais</CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -54,7 +57,7 @@ export function LoginForm() {
                                 id="usuario"
                                 type="text"
                                 autoComplete="username"
-                                placeholder="Seu usuário"
+                                placeholder="@arthur.reis"
                                 {...register('usuario')}
                             />
                             <FieldError

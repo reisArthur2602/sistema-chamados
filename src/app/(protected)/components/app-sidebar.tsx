@@ -13,6 +13,7 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from '@/components/ui/sidebar';
+import { LogoMark } from '@/components/logo';
 import { type SessionPayload } from '@/utils/session';
 import { TicketIcon, UsersIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -34,7 +35,7 @@ export function ProtectedSidebar({ session }: ProtectedSidebarProps) {
     const filteredNav = navItems.filter((item) =>
         (item.roles as readonly string[]).includes(session.role),
     );
-
+console.log(session)
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader>
@@ -42,12 +43,8 @@ export function ProtectedSidebar({ session }: ProtectedSidebarProps) {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href="/tickets">
-                                <div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground text-xs font-bold">
-                                    SC
-                                </div>
-                                <span className="font-title font-semibold">
-                                    Sistema de Chamados
-                                </span>
+                                <LogoMark size={32} />
+                                <span className="font-title font-semibold">Nexo</span>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
