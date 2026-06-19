@@ -1,5 +1,6 @@
 'use client';
 
+import { LogoMark } from '@/components/logo';
 import {
     Sidebar,
     SidebarContent,
@@ -13,7 +14,6 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from '@/components/ui/sidebar';
-import { LogoMark } from '@/components/logo';
 import { type SessionPayload } from '@/utils/session';
 import { TicketIcon, UsersIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -33,15 +33,15 @@ export function ProtectedSidebar({ session }: ProtectedSidebarProps) {
     const pathname = usePathname();
 
     const filteredNav = navItems.filter((item) =>
-        (item.roles as readonly string[]).includes(session.role),
+        (item.roles as readonly string[]).includes(session.role)
     );
-console.log(session)
+
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
+                        <SidebarMenuButton size="lg" asChild className="bg-transparent!">
                             <Link href="/tickets">
                                 <LogoMark size={32} />
                                 <span className="font-title font-semibold">Nexo</span>
@@ -64,6 +64,7 @@ console.log(session)
                                             pathname === href || pathname.startsWith(href + '/')
                                         }
                                         tooltip={label}
+                                        className="bg-transparent!"
                                     >
                                         <Link href={href}>
                                             <Icon />

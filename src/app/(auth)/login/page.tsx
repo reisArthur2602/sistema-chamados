@@ -1,4 +1,6 @@
+import { getSession } from '@/utils/session';
 import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 import { LoginForm } from './components/login-form';
 
 export const metadata: Metadata = {
@@ -6,7 +8,10 @@ export const metadata: Metadata = {
     description: 'Acesse seus chamados.',
 };
 
-export default function LoginPage() {
+export default async function LoginPage() {
+    const session = await getSession();
+    if (session) redirect('/chamados');
+
     return (
         <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-4">
             <div className="bg-dot-grid absolute inset-0 opacity-50" />

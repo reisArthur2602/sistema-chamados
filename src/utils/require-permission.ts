@@ -1,5 +1,5 @@
 import { Role } from '@/app/generated/enums';
-import { getSession } from '@/lib/session';
+import { getSession } from '@/utils/session';
 import { canPermission } from './can-permission';
 
 export const requirePermission = async (allowed: Role[]) => {

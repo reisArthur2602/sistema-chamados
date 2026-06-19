@@ -1,7 +1,7 @@
 import { requirePermission } from '@/utils/require-permission';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import { CreateUserDialog } from './components/create-user-dialog';
+import { UpsertUserDialog } from './components/upsert-user-dialog';
 import { UsersData } from './components/users-data';
 import UsersSuspense from './components/users-suspense';
 
@@ -21,7 +21,7 @@ export default async function UsersPage() {
                         Gerencie os usuários e permissões do sistema.
                     </p>
                 </div>
-                <CreateUserDialog />
+                <UpsertUserDialog />
             </div>
 
             <Suspense fallback={<UsersSuspense />}>

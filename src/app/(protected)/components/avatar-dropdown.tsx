@@ -25,10 +25,7 @@ export function AvatarDropdown({ nome, usuario }: AvatarDropdownProps) {
             <SidebarMenuItem>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <SidebarMenuButton
-                            size="lg"
-                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                        >
+                        <SidebarMenuButton size="lg" className="bg-transparent!">
                             <Avatar className="size-7 shrink-0 rounded-md">
                                 <AvatarImage alt={nome} />
                                 <AvatarFallback className="rounded-md text-xs">
