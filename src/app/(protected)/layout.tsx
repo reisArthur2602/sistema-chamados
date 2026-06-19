@@ -5,6 +5,7 @@ import { getSession } from '@/utils/session';
 import { PropsWithChildren } from 'react';
 import { AppHeader } from './components/app-header';
 import { ProtectedSidebar } from './components/app-sidebar';
+import { OnboardingDialog } from './components/onboarding-dialog';
 
 const ProtectedLayout = async ({ children }: PropsWithChildren) => {
     const session = await getSession();
@@ -19,6 +20,7 @@ const ProtectedLayout = async ({ children }: PropsWithChildren) => {
                     <main className="flex flex-1 flex-col p-4">{children}</main>
                 </SidebarInset>
             </SidebarProvider>
+            <OnboardingDialog usuarioId={session.id} />
         </TooltipProvider>
     );
 };

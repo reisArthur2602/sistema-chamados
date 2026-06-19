@@ -43,8 +43,7 @@ export function ProtectedSidebar({ session }: ProtectedSidebarProps) {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild className="bg-transparent!">
                             <Link href="/tickets">
-                                <LogoMark size={32} />
-                                <span className="font-title font-semibold">Nexo</span>
+                                <LogoMark size={44} />
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
