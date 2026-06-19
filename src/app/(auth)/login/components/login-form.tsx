@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -43,8 +44,9 @@ export function LoginForm() {
     return (
         <Card className="w-full shadow-lg border-border/60">
             <CardHeader className="items-center pb-4 text-center">
-                <LogoMark size={44} className="mx-auto" />
-
+                <Link href="/">
+                    <LogoMark size={44} className="mx-auto" />
+                </Link>
                 <CardTitle className="font-title text-xl">Chamados</CardTitle>
                 <CardDescription>Acesse com suas credenciais</CardDescription>
             </CardHeader>

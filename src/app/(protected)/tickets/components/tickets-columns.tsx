@@ -14,7 +14,7 @@ export type TicketRow = {
     status: StatusChamado;
     criadoEm: Date;
     abertoPor: { id: string; nome: string };
-    atribuidoPara: { nome: string } | null;
+    atribuidoPara: { id: string; nome: string } | null;
 };
 
 export const ticketColumns = (currentUserId: string): ColumnDef<TicketRow>[] => [
@@ -72,10 +72,17 @@ export const ticketColumns = (currentUserId: string): ColumnDef<TicketRow>[] => 
         header: 'Atribuído para',
         cell: ({ row }) => {
             const atribuido = row.original.atribuidoPara;
-            return atribuido ? (
-                <span className="text-sm">{atribuido.nome}</span>
-            ) : (
-                <span className="text-muted-foreground">—</span>
+            if (!atribuido) return <span className="text-muted-foreground">—</span>;
+            return (
+                <div className="flex items-center gap-2">
+                    {atribuido.id === currentUserId ? (
+                        <Badge variant="secondary" className="text-xs">
+                            Você
+                        </Badge>
+                    ) : (
+                        <span className="text-sm text-muted-foreground">{atribuido.nome}</span>
+                    )}
+                </div>
             );
         },
     },

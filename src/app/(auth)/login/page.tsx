@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default async function LoginPage() {
     const session = await getSession();
-    if (session) redirect('/chamados');
+    if (session) redirect('/tickets');
 
     return (
         <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-4">

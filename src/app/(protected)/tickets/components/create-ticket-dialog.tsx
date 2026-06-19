@@ -73,7 +73,7 @@ export function CreateTicketDialog({ usuarios = [] }: CreateTicketDialogProps) {
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogTrigger asChild>
-                <Button>
+                <Button className="w-full sm:w-auto">
                     <PlusIcon />
                     Novo chamado
                 </Button>

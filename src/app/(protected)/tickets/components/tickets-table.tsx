@@ -38,8 +38,6 @@ const statusOptions: { value: StatusChamado | 'todos'; label: string }[] = [
     { value: 'aberto', label: 'Aberto' },
     { value: 'em_atendimento', label: 'Em atendimento' },
     { value: 'resolvido', label: 'Ag. aprovação' },
-    { value: 'fechado', label: 'Fechado' },
-    { value: 'cancelado', label: 'Cancelado' },
 ];
 
 interface TicketsTableProps {
@@ -80,8 +78,8 @@ export function TicketsTable({ data, currentUserId }: TicketsTableProps) {
 
     return (
         <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-3">
-                <div className="relative flex-1 min-w-48 max-w-sm">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                <div className="relative w-full sm:min-w-48 sm:max-w-sm sm:flex-1">
                     <SearchIcon className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
                         placeholder="Buscar chamados..."
@@ -94,7 +92,7 @@ export function TicketsTable({ data, currentUserId }: TicketsTableProps) {
                     />
                 </div>
                 <Select value={statusAtivo} onValueChange={(v) => handleStatus(v as StatusChamado | 'todos')}>
-                    <SelectTrigger className="w-48">
+                    <SelectTrigger className="w-full sm:w-48">
                         <SelectValue placeholder="Status" />
                     </SelectTrigger>
                     <SelectContent>

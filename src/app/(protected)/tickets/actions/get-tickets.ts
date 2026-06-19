@@ -17,7 +17,7 @@ export async function getTickets() {
             status: true,
             criadoEm: true,
             abertoPor: { select: { id: true, nome: true } },
-            atribuidoPara: { select: { nome: true } },
+            atribuidoPara: { select: { id: true, nome: true } },
         },
         orderBy: { criadoEm: 'desc' },
     });

@@ -22,7 +22,7 @@ export default function TicketsPage() {
                         Gerencie e acompanhe todos os chamados do sistema.
                     </p>
                 </div>
-                <Suspense fallback={<Skeleton className="h-9 w-36 rounded-md" />}>
+                <Suspense fallback={<Skeleton className="h-9 w-full rounded-md sm:w-36" />}>
                     <CreateTicketDialogData />
                 </Suspense>
             </div>
