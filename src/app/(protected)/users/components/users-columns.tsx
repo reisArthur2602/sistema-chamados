@@ -11,7 +11,7 @@ import {
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDownIcon, MoreHorizontalIcon, PencilIcon, ShieldIcon, UserXIcon } from 'lucide-react';
 
-export type UsuarioRow = {
+export type UserRow = {
     id: string;
     nome: string;
     usuario: string;
@@ -32,7 +32,7 @@ const roleConfig: Record<Role, { label: string; className: string }> = {
     },
 };
 
-export const usuarioColumns: ColumnDef<UsuarioRow>[] = [
+export const userColumns: ColumnDef<UserRow>[] = [
     {
         accessorKey: 'nome',
         header: ({ column }) => (
@@ -104,7 +104,7 @@ export const usuarioColumns: ColumnDef<UsuarioRow>[] = [
         cell: ({ row }) => (
             <span className="text-muted-foreground">
                 {new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short' }).format(
-                    row.getValue<Date>('criadoEm')
+                    new Date(row.getValue<string>('criadoEm'))
                 )}
             </span>
         ),

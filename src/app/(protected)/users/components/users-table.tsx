@@ -22,10 +22,10 @@ import {
 } from '@tanstack/react-table';
 import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from 'lucide-react';
 import { useState } from 'react';
-import { usuarioColumns, type UsuarioRow } from './users-columns';
+import { userColumns, type UserRow } from './users-columns';
 
 interface UsersTableProps {
-    data: UsuarioRow[];
+    data: UserRow[];
 }
 
 export function UsersTable({ data }: UsersTableProps) {
@@ -35,7 +35,7 @@ export function UsersTable({ data }: UsersTableProps) {
 
     const table = useReactTable({
         data,
-        columns: usuarioColumns,
+        columns: userColumns,
         state: { sorting, globalFilter, pagination },
         onSortingChange: setSorting,
         onGlobalFilterChange: setGlobalFilter,
@@ -96,7 +96,7 @@ export function UsersTable({ data }: UsersTableProps) {
                         ) : (
                             <TableRow>
                                 <TableCell
-                                    colSpan={usuarioColumns.length}
+                                    colSpan={userColumns.length}
                                     className="h-32 text-center text-muted-foreground"
                                 >
                                     Nenhum usuário encontrado.

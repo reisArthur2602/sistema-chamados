@@ -278,7 +278,7 @@ export type UsuarioScalarWhereWithAggregatesInput = {
 }
 
 export type UsuarioCreateInput = {
-  id: string
+  id?: string
   nome: string
   usuario: string
   senhaHash: string
@@ -294,7 +294,7 @@ export type UsuarioCreateInput = {
 }
 
 export type UsuarioUncheckedCreateInput = {
-  id: string
+  id?: string
   nome: string
   usuario: string
   senhaHash: string
@@ -342,7 +342,7 @@ export type UsuarioUncheckedUpdateInput = {
 }
 
 export type UsuarioCreateManyInput = {
-  id: string
+  id?: string
   nome: string
   usuario: string
   senhaHash: string
@@ -512,7 +512,7 @@ export type UsuarioUpdateOneRequiredWithoutPushSubscriptionsNestedInput = {
 }
 
 export type UsuarioCreateWithoutChamadosAbertosInput = {
-  id: string
+  id?: string
   nome: string
   usuario: string
   senhaHash: string
@@ -527,7 +527,7 @@ export type UsuarioCreateWithoutChamadosAbertosInput = {
 }
 
 export type UsuarioUncheckedCreateWithoutChamadosAbertosInput = {
-  id: string
+  id?: string
   nome: string
   usuario: string
   senhaHash: string
@@ -547,7 +547,7 @@ export type UsuarioCreateOrConnectWithoutChamadosAbertosInput = {
 }
 
 export type UsuarioCreateWithoutChamadosAtribuidosInput = {
-  id: string
+  id?: string
   nome: string
   usuario: string
   senhaHash: string
@@ -562,7 +562,7 @@ export type UsuarioCreateWithoutChamadosAtribuidosInput = {
 }
 
 export type UsuarioUncheckedCreateWithoutChamadosAtribuidosInput = {
-  id: string
+  id?: string
   nome: string
   usuario: string
   senhaHash: string
@@ -664,7 +664,7 @@ export type UsuarioUncheckedUpdateWithoutChamadosAtribuidosInput = {
 }
 
 export type UsuarioCreateWithoutComentariosInput = {
-  id: string
+  id?: string
   nome: string
   usuario: string
   senhaHash: string
@@ -679,7 +679,7 @@ export type UsuarioCreateWithoutComentariosInput = {
 }
 
 export type UsuarioUncheckedCreateWithoutComentariosInput = {
-  id: string
+  id?: string
   nome: string
   usuario: string
   senhaHash: string
@@ -740,7 +740,7 @@ export type UsuarioUncheckedUpdateWithoutComentariosInput = {
 }
 
 export type UsuarioCreateWithoutAnexosInput = {
-  id: string
+  id?: string
   nome: string
   usuario: string
   senhaHash: string
@@ -755,7 +755,7 @@ export type UsuarioCreateWithoutAnexosInput = {
 }
 
 export type UsuarioUncheckedCreateWithoutAnexosInput = {
-  id: string
+  id?: string
   nome: string
   usuario: string
   senhaHash: string
@@ -816,7 +816,7 @@ export type UsuarioUncheckedUpdateWithoutAnexosInput = {
 }
 
 export type UsuarioCreateWithoutPushSubscriptionsInput = {
-  id: string
+  id?: string
   nome: string
   usuario: string
   senhaHash: string
@@ -831,7 +831,7 @@ export type UsuarioCreateWithoutPushSubscriptionsInput = {
 }
 
 export type UsuarioUncheckedCreateWithoutPushSubscriptionsInput = {
-  id: string
+  id?: string
   nome: string
   usuario: string
   senhaHash: string

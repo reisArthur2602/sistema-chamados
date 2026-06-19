@@ -287,7 +287,7 @@ export type ChamadoScalarWhereWithAggregatesInput = {
 }
 
 export type ChamadoCreateInput = {
-  id: string
+  id?: string
   titulo: string
   descricao: string
   status?: $Enums.StatusChamado
@@ -301,7 +301,7 @@ export type ChamadoCreateInput = {
 }
 
 export type ChamadoUncheckedCreateInput = {
-  id: string
+  id?: string
   titulo: string
   descricao: string
   status?: $Enums.StatusChamado
@@ -343,7 +343,7 @@ export type ChamadoUncheckedUpdateInput = {
 }
 
 export type ChamadoCreateManyInput = {
-  id: string
+  id?: string
   titulo: string
   descricao: string
   status?: $Enums.StatusChamado
@@ -554,7 +554,7 @@ export type ChamadoUpdateOneRequiredWithoutAnexosNestedInput = {
 }
 
 export type ChamadoCreateWithoutAbertoPorInput = {
-  id: string
+  id?: string
   titulo: string
   descricao: string
   status?: $Enums.StatusChamado
@@ -567,7 +567,7 @@ export type ChamadoCreateWithoutAbertoPorInput = {
 }
 
 export type ChamadoUncheckedCreateWithoutAbertoPorInput = {
-  id: string
+  id?: string
   titulo: string
   descricao: string
   status?: $Enums.StatusChamado
@@ -590,7 +590,7 @@ export type ChamadoCreateManyAbertoPorInputEnvelope = {
 }
 
 export type ChamadoCreateWithoutAtribuidoParaInput = {
-  id: string
+  id?: string
   titulo: string
   descricao: string
   status?: $Enums.StatusChamado
@@ -603,7 +603,7 @@ export type ChamadoCreateWithoutAtribuidoParaInput = {
 }
 
 export type ChamadoUncheckedCreateWithoutAtribuidoParaInput = {
-  id: string
+  id?: string
   titulo: string
   descricao: string
   status?: $Enums.StatusChamado
@@ -673,7 +673,7 @@ export type ChamadoUpdateManyWithWhereWithoutAtribuidoParaInput = {
 }
 
 export type ChamadoCreateWithoutComentariosInput = {
-  id: string
+  id?: string
   titulo: string
   descricao: string
   status?: $Enums.StatusChamado
@@ -686,7 +686,7 @@ export type ChamadoCreateWithoutComentariosInput = {
 }
 
 export type ChamadoUncheckedCreateWithoutComentariosInput = {
-  id: string
+  id?: string
   titulo: string
   descricao: string
   status?: $Enums.StatusChamado
@@ -741,7 +741,7 @@ export type ChamadoUncheckedUpdateWithoutComentariosInput = {
 }
 
 export type ChamadoCreateWithoutAnexosInput = {
-  id: string
+  id?: string
   titulo: string
   descricao: string
   status?: $Enums.StatusChamado
@@ -754,7 +754,7 @@ export type ChamadoCreateWithoutAnexosInput = {
 }
 
 export type ChamadoUncheckedCreateWithoutAnexosInput = {
-  id: string
+  id?: string
   titulo: string
   descricao: string
   status?: $Enums.StatusChamado
@@ -809,7 +809,7 @@ export type ChamadoUncheckedUpdateWithoutAnexosInput = {
 }
 
 export type ChamadoCreateManyAbertoPorInput = {
-  id: string
+  id?: string
   titulo: string
   descricao: string
   status?: $Enums.StatusChamado
@@ -820,7 +820,7 @@ export type ChamadoCreateManyAbertoPorInput = {
 }
 
 export type ChamadoCreateManyAtribuidoParaInput = {
-  id: string
+  id?: string
   titulo: string
   descricao: string
   status?: $Enums.StatusChamado

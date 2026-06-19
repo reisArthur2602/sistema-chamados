@@ -1,11 +1,11 @@
-import { env } from '../../env';
+import { env } from '@/env';
 import webpush from 'web-push';
 import { prisma } from './prisma';
 
 webpush.setVapidDetails(
     env.VAPID_SUBJECT,
     process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
-    env.VAPID_PRIVATE_KEY,
+    env.VAPID_PRIVATE_KEY
 );
 
 export interface PushPayload {
@@ -24,13 +24,13 @@ export async function sendPushToUser(usuarioId: string, payload: PushPayload) {
             webpush
                 .sendNotification(
                     { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
-                    JSON.stringify(payload),
+                    JSON.stringify(payload)
                 )
                 .catch(async (err: { statusCode?: number }) => {
                     if (err.statusCode === 410) {
                         await prisma.pushSubscription.delete({ where: { id: sub.id } });
                     }
-                }),
-        ),
+                })
+        )
     );
 }

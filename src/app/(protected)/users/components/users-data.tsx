@@ -1,11 +1,7 @@
-import { UsuarioRow } from './users-columns';
+import { getUsers } from '../actions/get-users';
 import { UsersTable } from './users-table';
 
-async function getUsuarios(): Promise<UsuarioRow[]> {
-    return [];
+export async function UsersData() {
+    const users = await getUsers();
+    return <UsersTable data={users} />;
 }
-
-export const UsersData = async () => {
-    const usuarios = await getUsuarios();
-    return <UsersTable data={usuarios} />;
-};

@@ -233,7 +233,7 @@ export type ComentarioScalarWhereWithAggregatesInput = {
 }
 
 export type ComentarioCreateInput = {
-  id: string
+  id?: string
   mensagem: string
   criadoEm?: Date | string
   chamado: Prisma.ChamadoCreateNestedOneWithoutComentariosInput
@@ -241,7 +241,7 @@ export type ComentarioCreateInput = {
 }
 
 export type ComentarioUncheckedCreateInput = {
-  id: string
+  id?: string
   mensagem: string
   criadoEm?: Date | string
   chamadoId: string
@@ -265,7 +265,7 @@ export type ComentarioUncheckedUpdateInput = {
 }
 
 export type ComentarioCreateManyInput = {
-  id: string
+  id?: string
   mensagem: string
   criadoEm?: Date | string
   chamadoId: string
@@ -411,14 +411,14 @@ export type ComentarioUncheckedUpdateManyWithoutChamadoNestedInput = {
 }
 
 export type ComentarioCreateWithoutUsuarioInput = {
-  id: string
+  id?: string
   mensagem: string
   criadoEm?: Date | string
   chamado: Prisma.ChamadoCreateNestedOneWithoutComentariosInput
 }
 
 export type ComentarioUncheckedCreateWithoutUsuarioInput = {
-  id: string
+  id?: string
   mensagem: string
   criadoEm?: Date | string
   chamadoId: string
@@ -462,14 +462,14 @@ export type ComentarioScalarWhereInput = {
 }
 
 export type ComentarioCreateWithoutChamadoInput = {
-  id: string
+  id?: string
   mensagem: string
   criadoEm?: Date | string
   usuario: Prisma.UsuarioCreateNestedOneWithoutComentariosInput
 }
 
 export type ComentarioUncheckedCreateWithoutChamadoInput = {
-  id: string
+  id?: string
   mensagem: string
   criadoEm?: Date | string
   usuarioId: string
@@ -502,7 +502,7 @@ export type ComentarioUpdateManyWithWhereWithoutChamadoInput = {
 }
 
 export type ComentarioCreateManyUsuarioInput = {
-  id: string
+  id?: string
   mensagem: string
   criadoEm?: Date | string
   chamadoId: string
@@ -530,7 +530,7 @@ export type ComentarioUncheckedUpdateManyWithoutUsuarioInput = {
 }
 
 export type ComentarioCreateManyChamadoInput = {
-  id: string
+  id?: string
   mensagem: string
   criadoEm?: Date | string
   usuarioId: string

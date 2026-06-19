@@ -1,7 +1,15 @@
 'use client';
 
+import { type StatusChamado } from '@/app/generated/enums';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import {
     Table,
     TableBody,
@@ -11,34 +19,49 @@ import {
     TableRow,
 } from '@/components/ui/table';
 import {
+    type ColumnFiltersState,
+    type PaginationState,
+    type SortingState,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
     useReactTable,
-    type PaginationState,
-    type SortingState,
 } from '@tanstack/react-table';
 import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from 'lucide-react';
-import { useState } from 'react';
-import { chamadoColumns, type ChamadoRow } from './tickets-columns';
+import { useMemo, useState } from 'react';
+import { ticketColumns, type TicketRow } from './tickets-columns';
+
+const statusOptions: { value: StatusChamado | 'todos'; label: string }[] = [
+    { value: 'todos', label: 'Todos' },
+    { value: 'aberto', label: 'Aberto' },
+    { value: 'em_atendimento', label: 'Em atendimento' },
+    { value: 'resolvido', label: 'Ag. aprovação' },
+    { value: 'fechado', label: 'Fechado' },
+    { value: 'cancelado', label: 'Cancelado' },
+];
 
 interface TicketsTableProps {
-    data: ChamadoRow[];
+    data: TicketRow[];
+    currentUserId: string;
 }
 
-export function TicketsTable({ data }: TicketsTableProps) {
+export function TicketsTable({ data, currentUserId }: TicketsTableProps) {
     const [sorting, setSorting] = useState<SortingState>([{ id: 'criadoEm', desc: true }]);
     const [globalFilter, setGlobalFilter] = useState('');
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
+
+    const columns = useMemo(() => ticketColumns(currentUserId), [currentUserId]);
 
     const table = useReactTable({
         data,
-        columns: chamadoColumns,
-        state: { sorting, globalFilter, pagination },
+        columns,
+        state: { sorting, globalFilter, columnFilters, pagination },
         onSortingChange: setSorting,
         onGlobalFilterChange: setGlobalFilter,
+        onColumnFiltersChange: setColumnFilters,
         onPaginationChange: setPagination,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
@@ -46,19 +69,42 @@ export function TicketsTable({ data }: TicketsTableProps) {
         getPaginationRowModel: getPaginationRowModel(),
     });
 
+    const statusAtivo =
+        (columnFilters.find((f) => f.id === 'status')?.value as StatusChamado | undefined) ??
+        'todos';
+
+    function handleStatus(value: StatusChamado | 'todos') {
+        setPagination((p) => ({ ...p, pageIndex: 0 }));
+        table.getColumn('status')?.setFilterValue(value === 'todos' ? undefined : value);
+    }
+
     return (
         <div className="space-y-4">
-            <div className="relative max-w-sm">
-                <SearchIcon className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                    placeholder="Buscar chamados..."
-                    value={globalFilter}
-                    onChange={(e) => {
-                        setGlobalFilter(e.target.value);
-                        setPagination((p) => ({ ...p, pageIndex: 0 }));
-                    }}
-                    className="pl-8"
-                />
+            <div className="flex flex-wrap items-center gap-3">
+                <div className="relative flex-1 min-w-48 max-w-sm">
+                    <SearchIcon className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                    <Input
+                        placeholder="Buscar chamados..."
+                        value={globalFilter}
+                        onChange={(e) => {
+                            setGlobalFilter(e.target.value);
+                            setPagination((p) => ({ ...p, pageIndex: 0 }));
+                        }}
+                        className="pl-8"
+                    />
+                </div>
+                <Select value={statusAtivo} onValueChange={(v) => handleStatus(v as StatusChamado | 'todos')}>
+                    <SelectTrigger className="w-48">
+                        <SelectValue placeholder="Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {statusOptions.map(({ value, label }) => (
+                            <SelectItem key={value} value={value}>
+                                {label}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
             </div>
 
             <div className="overflow-x-auto rounded-md border">
@@ -96,7 +142,7 @@ export function TicketsTable({ data }: TicketsTableProps) {
                         ) : (
                             <TableRow>
                                 <TableCell
-                                    colSpan={chamadoColumns.length}
+                                    colSpan={columns.length}
                                     className="h-32 text-center text-muted-foreground"
                                 >
                                     Nenhum chamado encontrado.
@@ -109,8 +155,8 @@ export function TicketsTable({ data }: TicketsTableProps) {
 
             <div className="flex items-center justify-between">
                 <p className="text-xs text-muted-foreground">
-                    {table.getFilteredRowModel().rows.length} chamado(s) ·{' '}
-                    página {table.getState().pagination.pageIndex + 1} de{' '}
+                    {table.getFilteredRowModel().rows.length} chamado(s) · página{' '}
+                    {table.getState().pagination.pageIndex + 1} de{' '}
                     {Math.max(table.getPageCount(), 1)}
                 </p>
                 <div className="flex items-center gap-1">

@@ -245,7 +245,7 @@ export type AnexoScalarWhereWithAggregatesInput = {
 }
 
 export type AnexoCreateInput = {
-  id: string
+  id?: string
   caminhoArquivo: string
   nomeArquivo: string
   criadoEm?: Date | string
@@ -254,7 +254,7 @@ export type AnexoCreateInput = {
 }
 
 export type AnexoUncheckedCreateInput = {
-  id: string
+  id?: string
   caminhoArquivo: string
   nomeArquivo: string
   criadoEm?: Date | string
@@ -281,7 +281,7 @@ export type AnexoUncheckedUpdateInput = {
 }
 
 export type AnexoCreateManyInput = {
-  id: string
+  id?: string
   caminhoArquivo: string
   nomeArquivo: string
   criadoEm?: Date | string
@@ -433,7 +433,7 @@ export type AnexoUncheckedUpdateManyWithoutChamadoNestedInput = {
 }
 
 export type AnexoCreateWithoutEnviadoPorInput = {
-  id: string
+  id?: string
   caminhoArquivo: string
   nomeArquivo: string
   criadoEm?: Date | string
@@ -441,7 +441,7 @@ export type AnexoCreateWithoutEnviadoPorInput = {
 }
 
 export type AnexoUncheckedCreateWithoutEnviadoPorInput = {
-  id: string
+  id?: string
   caminhoArquivo: string
   nomeArquivo: string
   criadoEm?: Date | string
@@ -487,7 +487,7 @@ export type AnexoScalarWhereInput = {
 }
 
 export type AnexoCreateWithoutChamadoInput = {
-  id: string
+  id?: string
   caminhoArquivo: string
   nomeArquivo: string
   criadoEm?: Date | string
@@ -495,7 +495,7 @@ export type AnexoCreateWithoutChamadoInput = {
 }
 
 export type AnexoUncheckedCreateWithoutChamadoInput = {
-  id: string
+  id?: string
   caminhoArquivo: string
   nomeArquivo: string
   criadoEm?: Date | string
@@ -529,7 +529,7 @@ export type AnexoUpdateManyWithWhereWithoutChamadoInput = {
 }
 
 export type AnexoCreateManyEnviadoPorInput = {
-  id: string
+  id?: string
   caminhoArquivo: string
   nomeArquivo: string
   criadoEm?: Date | string
@@ -561,7 +561,7 @@ export type AnexoUncheckedUpdateManyWithoutEnviadoPorInput = {
 }
 
 export type AnexoCreateManyChamadoInput = {
-  id: string
+  id?: string
   caminhoArquivo: string
   nomeArquivo: string
   criadoEm?: Date | string

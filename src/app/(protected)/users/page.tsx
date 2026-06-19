@@ -1,3 +1,4 @@
+import { requirePermission } from '@/utils/require-permission';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { CreateUserDialog } from './components/create-user-dialog';
@@ -9,7 +10,8 @@ export const metadata: Metadata = {
     description: 'Gerencie os usuários e permissões do sistema.',
 };
 
-export default function UsersPage() {
+export default async function UsersPage() {
+    await requirePermission(['Admin']);
     return (
         <div className="space-y-6">
             <div className="flex flex-wrap items-start justify-between gap-4">

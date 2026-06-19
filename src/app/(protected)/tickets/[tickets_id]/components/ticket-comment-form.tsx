@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { createComment } from '../actions/create-comment';
 
 const schema = z.object({
     mensagem: z
@@ -21,7 +22,7 @@ interface TicketCommentFormProps {
     chamadoId: string;
 }
 
-export function TicketCommentForm({ chamadoId: _chamadoId }: TicketCommentFormProps) {
+export function TicketCommentForm({ chamadoId }: TicketCommentFormProps) {
     const {
         register,
         handleSubmit,
@@ -31,9 +32,9 @@ export function TicketCommentForm({ chamadoId: _chamadoId }: TicketCommentFormPr
         resolver: zodResolver(schema),
     });
 
-    async function onSubmit(_data: FormValues) {
+    async function onSubmit(data: FormValues) {
         try {
-            // TODO: server action
+            await createComment(chamadoId, data.mensagem);
             toast.success('Comentário adicionado!');
             reset();
         } catch {

@@ -13,18 +13,27 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from '@/components/ui/sidebar';
+import { type SessionPayload } from '@/utils/session';
 import { TicketIcon, UsersIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AvatarDropdown } from './avatar-dropdown';
 
 const navItems = [
-    { label: 'Chamados', href: '/tickets', icon: TicketIcon },
-    { label: 'Usuários', href: '/users', icon: UsersIcon },
-];
+    { label: 'Chamados', href: '/tickets', icon: TicketIcon, roles: ['Admin', 'Membro'] },
+    { label: 'Usuários', href: '/users', icon: UsersIcon, roles: ['Admin'] },
+] as const;
 
-export function ProtectedSidebar() {
+interface ProtectedSidebarProps {
+    session: SessionPayload;
+}
+
+export function ProtectedSidebar({ session }: ProtectedSidebarProps) {
     const pathname = usePathname();
+
+    const filteredNav = navItems.filter((item) =>
+        (item.roles as readonly string[]).includes(session.role),
+    );
 
     return (
         <Sidebar collapsible="icon">
@@ -50,13 +59,12 @@ export function ProtectedSidebar() {
                     <SidebarGroupLabel>Menu</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {navItems.map(({ label, href, icon: Icon }) => (
+                            {filteredNav.map(({ label, href, icon: Icon }) => (
                                 <SidebarMenuItem key={href}>
                                     <SidebarMenuButton
                                         asChild
                                         isActive={
-                                            pathname === href ||
-                                            pathname.startsWith(href + '/')
+                                            pathname === href || pathname.startsWith(href + '/')
                                         }
                                         tooltip={label}
                                     >
@@ -73,7 +81,7 @@ export function ProtectedSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <AvatarDropdown name="Arthur Reis" email="arthur@email.com" />
+                <AvatarDropdown nome={session.nome} usuario={session.usuario} />
             </SidebarFooter>
 
             <SidebarRail />

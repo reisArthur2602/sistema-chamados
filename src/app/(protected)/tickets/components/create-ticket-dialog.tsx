@@ -1,6 +1,5 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -21,11 +20,13 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { PlusIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { createTicket } from '../actions/create-ticket';
 
 const createChamadoSchema = z.object({
     titulo: z.string().min(1, 'Título obrigatório').max(255, 'Máximo 255 caracteres'),
@@ -57,15 +58,11 @@ export function CreateTicketDialog({ usuarios = [] }: CreateTicketDialogProps) {
         resolver: zodResolver(createChamadoSchema),
     });
 
-    async function onSubmit(_data: CreateChamadoValues) {
-        try {
-            // TODO: chamar server action / API
-            toast.success('Chamado criado com sucesso!');
-            setOpen(false);
-            reset();
-        } catch {
-            toast.error('Erro ao criar chamado. Tente novamente.');
-        }
+    async function onSubmit(data: CreateChamadoValues) {
+        await createTicket(data);
+        toast.success('Chamado criado com sucesso!');
+        setOpen(false);
+        reset();
     }
 
     function handleOpenChange(value: boolean) {
@@ -100,9 +97,7 @@ export function CreateTicketDialog({ usuarios = [] }: CreateTicketDialogProps) {
                                 {...register('titulo')}
                             />
                             <FieldError
-                                errors={
-                                    errors.titulo ? [{ message: errors.titulo.message }] : []
-                                }
+                                errors={errors.titulo ? [{ message: errors.titulo.message }] : []}
                             />
                         </Field>
 
@@ -116,9 +111,7 @@ export function CreateTicketDialog({ usuarios = [] }: CreateTicketDialogProps) {
                             />
                             <FieldError
                                 errors={
-                                    errors.descricao
-                                        ? [{ message: errors.descricao.message }]
-                                        : []
+                                    errors.descricao ? [{ message: errors.descricao.message }] : []
                                 }
                             />
                         </Field>

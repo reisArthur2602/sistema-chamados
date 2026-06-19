@@ -242,7 +242,7 @@ export type PushSubscriptionScalarWhereWithAggregatesInput = {
 }
 
 export type PushSubscriptionCreateInput = {
-  id: string
+  id?: string
   endpoint: string
   p256dh: string
   auth: string
@@ -251,7 +251,7 @@ export type PushSubscriptionCreateInput = {
 }
 
 export type PushSubscriptionUncheckedCreateInput = {
-  id: string
+  id?: string
   endpoint: string
   p256dh: string
   auth: string
@@ -278,7 +278,7 @@ export type PushSubscriptionUncheckedUpdateInput = {
 }
 
 export type PushSubscriptionCreateManyInput = {
-  id: string
+  id?: string
   endpoint: string
   p256dh: string
   auth: string
@@ -389,7 +389,7 @@ export type PushSubscriptionUncheckedUpdateManyWithoutUsuarioNestedInput = {
 }
 
 export type PushSubscriptionCreateWithoutUsuarioInput = {
-  id: string
+  id?: string
   endpoint: string
   p256dh: string
   auth: string
@@ -397,7 +397,7 @@ export type PushSubscriptionCreateWithoutUsuarioInput = {
 }
 
 export type PushSubscriptionUncheckedCreateWithoutUsuarioInput = {
-  id: string
+  id?: string
   endpoint: string
   p256dh: string
   auth: string
@@ -443,7 +443,7 @@ export type PushSubscriptionScalarWhereInput = {
 }
 
 export type PushSubscriptionCreateManyUsuarioInput = {
-  id: string
+  id?: string
   endpoint: string
   p256dh: string
   auth: string

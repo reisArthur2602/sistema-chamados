@@ -1,15 +1,17 @@
+import { Skeleton } from '@/components/ui/skeleton';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import { CreateTicketDialog } from './components/create-ticket-dialog';
+import { CreateTicketDialogData } from './components/create-ticket-dialog-data';
 import { TicketsData } from './components/tickets-data';
 import TicketsSuspense from './components/tickets-suspense';
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
     title: 'Chamados',
     description: 'Gerencie e acompanhe todos os chamados do sistema.',
 };
 
-// TODO: passar usuarios para CreateTicketDialog via server component quando Prisma estiver configurado
 export default function TicketsPage() {
     return (
         <div className="space-y-6">
@@ -20,7 +22,9 @@ export default function TicketsPage() {
                         Gerencie e acompanhe todos os chamados do sistema.
                     </p>
                 </div>
-                <CreateTicketDialog usuarios={[]} />
+                <Suspense fallback={<Skeleton className="h-9 w-36 rounded-md" />}>
+                    <CreateTicketDialogData />
+                </Suspense>
             </div>
 
             <Suspense fallback={<TicketsSuspense />}>

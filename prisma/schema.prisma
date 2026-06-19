@@ -21,7 +21,7 @@ enum StatusChamado {
 }
 
 model Usuario {
-    id           String   @id @db.VarChar(36)
+    id           String   @id @default(uuid()) @db.VarChar(36)
     nome         String   @db.VarChar(255)
     usuario      String   @unique @db.VarChar(100)
     senhaHash    String   @map("senha_hash") @db.VarChar(255)
@@ -40,13 +40,13 @@ model Usuario {
 }
 
 model Chamado {
-    id           String            @id @db.VarChar(36)
-    titulo       String            @db.VarChar(255)
-    descricao    String            @db.Text
+    id           String        @id @default(uuid()) @db.VarChar(36)
+    titulo       String        @db.VarChar(255)
+    descricao    String        @db.Text
     status       StatusChamado @default(aberto)
     ativo        Boolean       @default(true)
-    criadoEm     DateTime          @default(now()) @map("criado_em")
-    atualizadoEm DateTime          @updatedAt @map("atualizado_em")
+    criadoEm     DateTime      @default(now()) @map("criado_em")
+    atualizadoEm DateTime      @updatedAt @map("atualizado_em")
 
     abertoPorId     String  @map("aberto_por") @db.VarChar(36)
     atribuidoParaId String? @map("atribuido_para") @db.VarChar(36)
@@ -61,7 +61,7 @@ model Chamado {
 }
 
 model Comentario {
-    id       String   @id @db.VarChar(36)
+    id       String   @id @default(uuid()) @db.VarChar(36)
     mensagem String   @db.Text
     criadoEm DateTime @default(now()) @map("criado_em")
 
@@ -75,7 +75,7 @@ model Comentario {
 }
 
 model Anexo {
-    id             String   @id @db.VarChar(36)
+    id             String   @id @default(uuid()) @db.VarChar(36)
     caminhoArquivo String   @map("caminho_arquivo") @db.VarChar(500)
     nomeArquivo    String   @map("nome_arquivo") @db.VarChar(255)
     criadoEm       DateTime @default(now()) @map("criado_em")
@@ -90,11 +90,11 @@ model Anexo {
 }
 
 model PushSubscription {
-    id        String   @id @db.VarChar(36)
-    endpoint  String   @unique @db.VarChar(500)
-    p256dh    String   @db.VarChar(255)
-    auth      String   @db.VarChar(100)
-    criadoEm  DateTime @default(now()) @map("criado_em")
+    id       String   @id @default(uuid()) @db.VarChar(36)
+    endpoint String   @unique @db.VarChar(500)
+    p256dh   String   @db.VarChar(255)
+    auth     String   @db.VarChar(100)
+    criadoEm DateTime @default(now()) @map("criado_em")
 
     usuarioId String  @map("usuario_id") @db.VarChar(36)
     usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
