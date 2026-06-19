@@ -4,7 +4,6 @@ import type { PushPayload } from '@/lib/web-push';
 import { sendPushToUser } from '@/lib/web-push';
 import { prisma } from '@/lib/prisma';
 import { requireAuth } from '@/utils/require-auth';
-import { revalidatePath } from 'next/cache';
 
 export async function createComment(chamadoId: string, mensagem: string) {
     const session = await requireAuth();
@@ -21,8 +20,6 @@ export async function createComment(chamadoId: string, mensagem: string) {
     await prisma.comentario.create({
         data: { chamadoId, usuarioId: session.id, mensagem },
     });
-
-    revalidatePath(`/tickets/${chamadoId}`);
 
     const payload: PushPayload = {
         title: 'Novo comentário no chamado',

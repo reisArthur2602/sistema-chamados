@@ -4,7 +4,7 @@ import { getTicketTitle } from './actions/get-ticket-title';
 import { TicketDetailData } from './components/ticket-detail-data';
 import TicketDetailSuspense from './components/ticket-detail-suspense';
 
-export const revalidate = 300;
+export const revalidate = 60;
 
 interface Props {
     params: Promise<{ tickets_id: string }>;

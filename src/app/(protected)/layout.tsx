@@ -1,14 +1,14 @@
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { logout } from '@/utils/logout';
 import { getSession } from '@/utils/session';
-import { redirect } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 import { AppHeader } from './components/app-header';
 import { ProtectedSidebar } from './components/app-sidebar';
 
 const ProtectedLayout = async ({ children }: PropsWithChildren) => {
     const session = await getSession();
-    if (!session) redirect('/login');
+    if (!session) return await logout();
 
     return (
         <TooltipProvider delayDuration={0}>

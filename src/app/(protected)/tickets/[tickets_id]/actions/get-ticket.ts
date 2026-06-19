@@ -19,15 +19,6 @@ export async function getTicket(id: string) {
             atualizadoEm: true,
             abertoPor: { select: { id: true, nome: true, usuario: true } },
             atribuidoPara: { select: { id: true, nome: true, usuario: true } },
-            comentarios: {
-                select: {
-                    id: true,
-                    mensagem: true,
-                    criadoEm: true,
-                    usuario: { select: { id: true, nome: true, usuario: true } },
-                },
-                orderBy: { criadoEm: 'asc' },
-            },
             anexos: {
                 select: {
                     id: true,

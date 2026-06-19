@@ -45,7 +45,7 @@ export async function TicketDetailData({ id }: { id: string }) {
             <div className="flex flex-col gap-6 lg:flex-row">
                 <div className="flex min-w-0 flex-1 flex-col gap-6">
                     <TicketDescription descricao={chamado.descricao} />
-                    <TicketComments chamadoId={chamado.id} status={chamado.status} comentarios={chamado.comentarios} />
+                    <TicketComments chamadoId={chamado.id} status={chamado.status} currentUserId={session!.id} />
                 </div>
                 <div className="w-full lg:w-64 lg:flex-none">
                     <TicketInfo

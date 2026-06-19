@@ -4,8 +4,8 @@ self.addEventListener('push', function (event) {
     event.waitUntil(
         self.registration.showNotification(data.title ?? 'Sistema de Chamados', {
             body: data.body ?? '',
-            icon: '/favicon.ico',
-            badge: '/favicon.ico',
+            icon: '/icon.svg',
+            badge: '/badge.svg',
             data: { url: data.url ?? '/' },
         })
     );

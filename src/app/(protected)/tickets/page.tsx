@@ -5,7 +5,7 @@ import { CreateTicketDialogData } from './components/create-ticket-dialog-data';
 import { TicketsData } from './components/tickets-data';
 import TicketsSuspense from './components/tickets-suspense';
 
-export const revalidate = 300;
+export const revalidate = 60;
 
 export const metadata: Metadata = {
     title: 'Chamados',

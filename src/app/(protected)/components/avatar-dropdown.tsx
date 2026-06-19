@@ -19,6 +19,27 @@ interface AvatarDropdownProps {
     usuario: string;
 }
 
+async function handleLogout() {
+    try {
+        const sw = navigator.serviceWorker;
+        if (sw) {
+            const reg = await sw.ready;
+            const sub = await reg.pushManager?.getSubscription();
+            if (sub) {
+                await fetch('/api/push/subscribe', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ endpoint: sub.endpoint }),
+                });
+                await sub.unsubscribe();
+            }
+        }
+    } catch {
+        // não bloqueia o logout em caso de falha
+    }
+    await logout();
+}
+
 export function AvatarDropdown({ nome, usuario }: AvatarDropdownProps) {
     return (
         <SidebarMenu>
@@ -51,7 +72,7 @@ export function AvatarDropdown({ nome, usuario }: AvatarDropdownProps) {
                             </div>
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem variant="destructive" onClick={() => logout()}>
+                        <DropdownMenuItem variant="destructive" onClick={handleLogout}>
                             <LogOutIcon />
                             Sair
                         </DropdownMenuItem>

@@ -63,6 +63,7 @@ model Chamado {
 model Comentario {
     id       String   @id @default(uuid()) @db.VarChar(36)
     mensagem String   @db.Text
+    apagado  Boolean  @default(false)
     criadoEm DateTime @default(now()) @map("criado_em")
 
     chamadoId String @map("chamado_id") @db.VarChar(36)

@@ -32,10 +32,24 @@ export function PushSubscriptionButton({ usuarioId }: PushSubscriptionButtonProp
 
         navigator.serviceWorker
             .register('/sw.js')
-            .then((reg) => reg.pushManager.getSubscription())
-            .then((sub) => setSubscribed(!!sub))
+            .then(async (reg) => {
+                const sub = await reg.pushManager.getSubscription();
+                if (sub) {
+                    const json = sub.toJSON();
+                    await fetch('/api/push/subscribe', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            endpoint: json.endpoint,
+                            keys: json.keys,
+                            usuarioId,
+                        }),
+                    });
+                    setSubscribed(true);
+                }
+            })
             .finally(() => setLoading(false));
-    }, []);
+    }, [usuarioId]);
 
     async function toggle() {
         setLoading(true);

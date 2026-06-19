@@ -27,10 +27,10 @@ export async function createTicket(input: CreateTicketInput) {
     revalidatePath('/tickets');
 
     if (ticket.atribuidoParaId) {
-        sendPushToUser(ticket.atribuidoParaId, {
+        await sendPushToUser(ticket.atribuidoParaId, {
             title: 'Novo chamado atribuído a você',
             body: ticket.titulo,
             url: `/tickets/${ticket.id}`,
-        }).catch(() => {});
+        });
     }
 }

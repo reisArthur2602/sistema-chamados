@@ -27,6 +27,7 @@ export type AggregateComentario = {
 export type ComentarioMinAggregateOutputType = {
   id: string | null
   mensagem: string | null
+  apagado: boolean | null
   criadoEm: Date | null
   chamadoId: string | null
   usuarioId: string | null
@@ -35,6 +36,7 @@ export type ComentarioMinAggregateOutputType = {
 export type ComentarioMaxAggregateOutputType = {
   id: string | null
   mensagem: string | null
+  apagado: boolean | null
   criadoEm: Date | null
   chamadoId: string | null
   usuarioId: string | null
@@ -43,6 +45,7 @@ export type ComentarioMaxAggregateOutputType = {
 export type ComentarioCountAggregateOutputType = {
   id: number
   mensagem: number
+  apagado: number
   criadoEm: number
   chamadoId: number
   usuarioId: number
@@ -53,6 +56,7 @@ export type ComentarioCountAggregateOutputType = {
 export type ComentarioMinAggregateInputType = {
   id?: true
   mensagem?: true
+  apagado?: true
   criadoEm?: true
   chamadoId?: true
   usuarioId?: true
@@ -61,6 +65,7 @@ export type ComentarioMinAggregateInputType = {
 export type ComentarioMaxAggregateInputType = {
   id?: true
   mensagem?: true
+  apagado?: true
   criadoEm?: true
   chamadoId?: true
   usuarioId?: true
@@ -69,6 +74,7 @@ export type ComentarioMaxAggregateInputType = {
 export type ComentarioCountAggregateInputType = {
   id?: true
   mensagem?: true
+  apagado?: true
   criadoEm?: true
   chamadoId?: true
   usuarioId?: true
@@ -150,6 +156,7 @@ export type ComentarioGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type ComentarioGroupByOutputType = {
   id: string
   mensagem: string
+  apagado: boolean
   criadoEm: Date
   chamadoId: string
   usuarioId: string
@@ -179,6 +186,7 @@ export type ComentarioWhereInput = {
   NOT?: Prisma.ComentarioWhereInput | Prisma.ComentarioWhereInput[]
   id?: Prisma.StringFilter<"Comentario"> | string
   mensagem?: Prisma.StringFilter<"Comentario"> | string
+  apagado?: Prisma.BoolFilter<"Comentario"> | boolean
   criadoEm?: Prisma.DateTimeFilter<"Comentario"> | Date | string
   chamadoId?: Prisma.StringFilter<"Comentario"> | string
   usuarioId?: Prisma.StringFilter<"Comentario"> | string
@@ -189,6 +197,7 @@ export type ComentarioWhereInput = {
 export type ComentarioOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   mensagem?: Prisma.SortOrder
+  apagado?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   chamadoId?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
@@ -203,6 +212,7 @@ export type ComentarioWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ComentarioWhereInput[]
   NOT?: Prisma.ComentarioWhereInput | Prisma.ComentarioWhereInput[]
   mensagem?: Prisma.StringFilter<"Comentario"> | string
+  apagado?: Prisma.BoolFilter<"Comentario"> | boolean
   criadoEm?: Prisma.DateTimeFilter<"Comentario"> | Date | string
   chamadoId?: Prisma.StringFilter<"Comentario"> | string
   usuarioId?: Prisma.StringFilter<"Comentario"> | string
@@ -213,6 +223,7 @@ export type ComentarioWhereUniqueInput = Prisma.AtLeast<{
 export type ComentarioOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   mensagem?: Prisma.SortOrder
+  apagado?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   chamadoId?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
@@ -227,6 +238,7 @@ export type ComentarioScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ComentarioScalarWhereWithAggregatesInput | Prisma.ComentarioScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Comentario"> | string
   mensagem?: Prisma.StringWithAggregatesFilter<"Comentario"> | string
+  apagado?: Prisma.BoolWithAggregatesFilter<"Comentario"> | boolean
   criadoEm?: Prisma.DateTimeWithAggregatesFilter<"Comentario"> | Date | string
   chamadoId?: Prisma.StringWithAggregatesFilter<"Comentario"> | string
   usuarioId?: Prisma.StringWithAggregatesFilter<"Comentario"> | string
@@ -235,6 +247,7 @@ export type ComentarioScalarWhereWithAggregatesInput = {
 export type ComentarioCreateInput = {
   id?: string
   mensagem: string
+  apagado?: boolean
   criadoEm?: Date | string
   chamado: Prisma.ChamadoCreateNestedOneWithoutComentariosInput
   usuario: Prisma.UsuarioCreateNestedOneWithoutComentariosInput
@@ -243,6 +256,7 @@ export type ComentarioCreateInput = {
 export type ComentarioUncheckedCreateInput = {
   id?: string
   mensagem: string
+  apagado?: boolean
   criadoEm?: Date | string
   chamadoId: string
   usuarioId: string
@@ -251,6 +265,7 @@ export type ComentarioUncheckedCreateInput = {
 export type ComentarioUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   mensagem?: Prisma.StringFieldUpdateOperationsInput | string
+  apagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chamado?: Prisma.ChamadoUpdateOneRequiredWithoutComentariosNestedInput
   usuario?: Prisma.UsuarioUpdateOneRequiredWithoutComentariosNestedInput
@@ -259,6 +274,7 @@ export type ComentarioUpdateInput = {
 export type ComentarioUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   mensagem?: Prisma.StringFieldUpdateOperationsInput | string
+  apagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chamadoId?: Prisma.StringFieldUpdateOperationsInput | string
   usuarioId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -267,6 +283,7 @@ export type ComentarioUncheckedUpdateInput = {
 export type ComentarioCreateManyInput = {
   id?: string
   mensagem: string
+  apagado?: boolean
   criadoEm?: Date | string
   chamadoId: string
   usuarioId: string
@@ -275,12 +292,14 @@ export type ComentarioCreateManyInput = {
 export type ComentarioUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   mensagem?: Prisma.StringFieldUpdateOperationsInput | string
+  apagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ComentarioUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   mensagem?: Prisma.StringFieldUpdateOperationsInput | string
+  apagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chamadoId?: Prisma.StringFieldUpdateOperationsInput | string
   usuarioId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -305,6 +324,7 @@ export type ComentarioOrderByRelevanceInput = {
 export type ComentarioCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   mensagem?: Prisma.SortOrder
+  apagado?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   chamadoId?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
@@ -313,6 +333,7 @@ export type ComentarioCountOrderByAggregateInput = {
 export type ComentarioMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   mensagem?: Prisma.SortOrder
+  apagado?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   chamadoId?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
@@ -321,6 +342,7 @@ export type ComentarioMaxOrderByAggregateInput = {
 export type ComentarioMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   mensagem?: Prisma.SortOrder
+  apagado?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   chamadoId?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
@@ -413,6 +435,7 @@ export type ComentarioUncheckedUpdateManyWithoutChamadoNestedInput = {
 export type ComentarioCreateWithoutUsuarioInput = {
   id?: string
   mensagem: string
+  apagado?: boolean
   criadoEm?: Date | string
   chamado: Prisma.ChamadoCreateNestedOneWithoutComentariosInput
 }
@@ -420,6 +443,7 @@ export type ComentarioCreateWithoutUsuarioInput = {
 export type ComentarioUncheckedCreateWithoutUsuarioInput = {
   id?: string
   mensagem: string
+  apagado?: boolean
   criadoEm?: Date | string
   chamadoId: string
 }
@@ -456,6 +480,7 @@ export type ComentarioScalarWhereInput = {
   NOT?: Prisma.ComentarioScalarWhereInput | Prisma.ComentarioScalarWhereInput[]
   id?: Prisma.StringFilter<"Comentario"> | string
   mensagem?: Prisma.StringFilter<"Comentario"> | string
+  apagado?: Prisma.BoolFilter<"Comentario"> | boolean
   criadoEm?: Prisma.DateTimeFilter<"Comentario"> | Date | string
   chamadoId?: Prisma.StringFilter<"Comentario"> | string
   usuarioId?: Prisma.StringFilter<"Comentario"> | string
@@ -464,6 +489,7 @@ export type ComentarioScalarWhereInput = {
 export type ComentarioCreateWithoutChamadoInput = {
   id?: string
   mensagem: string
+  apagado?: boolean
   criadoEm?: Date | string
   usuario: Prisma.UsuarioCreateNestedOneWithoutComentariosInput
 }
@@ -471,6 +497,7 @@ export type ComentarioCreateWithoutChamadoInput = {
 export type ComentarioUncheckedCreateWithoutChamadoInput = {
   id?: string
   mensagem: string
+  apagado?: boolean
   criadoEm?: Date | string
   usuarioId: string
 }
@@ -504,6 +531,7 @@ export type ComentarioUpdateManyWithWhereWithoutChamadoInput = {
 export type ComentarioCreateManyUsuarioInput = {
   id?: string
   mensagem: string
+  apagado?: boolean
   criadoEm?: Date | string
   chamadoId: string
 }
@@ -511,6 +539,7 @@ export type ComentarioCreateManyUsuarioInput = {
 export type ComentarioUpdateWithoutUsuarioInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   mensagem?: Prisma.StringFieldUpdateOperationsInput | string
+  apagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chamado?: Prisma.ChamadoUpdateOneRequiredWithoutComentariosNestedInput
 }
@@ -518,6 +547,7 @@ export type ComentarioUpdateWithoutUsuarioInput = {
 export type ComentarioUncheckedUpdateWithoutUsuarioInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   mensagem?: Prisma.StringFieldUpdateOperationsInput | string
+  apagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chamadoId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -525,6 +555,7 @@ export type ComentarioUncheckedUpdateWithoutUsuarioInput = {
 export type ComentarioUncheckedUpdateManyWithoutUsuarioInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   mensagem?: Prisma.StringFieldUpdateOperationsInput | string
+  apagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chamadoId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -532,6 +563,7 @@ export type ComentarioUncheckedUpdateManyWithoutUsuarioInput = {
 export type ComentarioCreateManyChamadoInput = {
   id?: string
   mensagem: string
+  apagado?: boolean
   criadoEm?: Date | string
   usuarioId: string
 }
@@ -539,6 +571,7 @@ export type ComentarioCreateManyChamadoInput = {
 export type ComentarioUpdateWithoutChamadoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   mensagem?: Prisma.StringFieldUpdateOperationsInput | string
+  apagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usuario?: Prisma.UsuarioUpdateOneRequiredWithoutComentariosNestedInput
 }
@@ -546,6 +579,7 @@ export type ComentarioUpdateWithoutChamadoInput = {
 export type ComentarioUncheckedUpdateWithoutChamadoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   mensagem?: Prisma.StringFieldUpdateOperationsInput | string
+  apagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usuarioId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -553,6 +587,7 @@ export type ComentarioUncheckedUpdateWithoutChamadoInput = {
 export type ComentarioUncheckedUpdateManyWithoutChamadoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   mensagem?: Prisma.StringFieldUpdateOperationsInput | string
+  apagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usuarioId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -562,6 +597,7 @@ export type ComentarioUncheckedUpdateManyWithoutChamadoInput = {
 export type ComentarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   mensagem?: boolean
+  apagado?: boolean
   criadoEm?: boolean
   chamadoId?: boolean
   usuarioId?: boolean
@@ -574,12 +610,13 @@ export type ComentarioSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type ComentarioSelectScalar = {
   id?: boolean
   mensagem?: boolean
+  apagado?: boolean
   criadoEm?: boolean
   chamadoId?: boolean
   usuarioId?: boolean
 }
 
-export type ComentarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "mensagem" | "criadoEm" | "chamadoId" | "usuarioId", ExtArgs["result"]["comentario"]>
+export type ComentarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "mensagem" | "apagado" | "criadoEm" | "chamadoId" | "usuarioId", ExtArgs["result"]["comentario"]>
 export type ComentarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   chamado?: boolean | Prisma.ChamadoDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
@@ -594,6 +631,7 @@ export type $ComentarioPayload<ExtArgs extends runtime.Types.Extensions.Internal
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     mensagem: string
+    apagado: boolean
     criadoEm: Date
     chamadoId: string
     usuarioId: string
@@ -970,6 +1008,7 @@ export interface Prisma__ComentarioClient<T, Null = never, ExtArgs extends runti
 export interface ComentarioFieldRefs {
   readonly id: Prisma.FieldRef<"Comentario", 'String'>
   readonly mensagem: Prisma.FieldRef<"Comentario", 'String'>
+  readonly apagado: Prisma.FieldRef<"Comentario", 'Boolean'>
   readonly criadoEm: Prisma.FieldRef<"Comentario", 'DateTime'>
   readonly chamadoId: Prisma.FieldRef<"Comentario", 'String'>
   readonly usuarioId: Prisma.FieldRef<"Comentario", 'String'>
