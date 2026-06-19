@@ -205,15 +205,15 @@ export type ChamadoWhereInput = {
   AND?: Prisma.ChamadoWhereInput | Prisma.ChamadoWhereInput[]
   OR?: Prisma.ChamadoWhereInput[]
   NOT?: Prisma.ChamadoWhereInput | Prisma.ChamadoWhereInput[]
-  id?: Prisma.StringFilter<"Chamado"> | string
+  id?: Prisma.UuidFilter<"Chamado"> | string
   titulo?: Prisma.StringFilter<"Chamado"> | string
   descricao?: Prisma.StringFilter<"Chamado"> | string
   status?: Prisma.EnumStatusChamadoFilter<"Chamado"> | $Enums.StatusChamado
   ativo?: Prisma.BoolFilter<"Chamado"> | boolean
   criadoEm?: Prisma.DateTimeFilter<"Chamado"> | Date | string
   atualizadoEm?: Prisma.DateTimeFilter<"Chamado"> | Date | string
-  abertoPorId?: Prisma.StringFilter<"Chamado"> | string
-  atribuidoParaId?: Prisma.StringNullableFilter<"Chamado"> | string | null
+  abertoPorId?: Prisma.UuidFilter<"Chamado"> | string
+  atribuidoParaId?: Prisma.UuidNullableFilter<"Chamado"> | string | null
   abertoPor?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   atribuidoPara?: Prisma.XOR<Prisma.UsuarioNullableScalarRelationFilter, Prisma.UsuarioWhereInput> | null
   comentarios?: Prisma.ComentarioListRelationFilter
@@ -234,7 +234,6 @@ export type ChamadoOrderByWithRelationInput = {
   atribuidoPara?: Prisma.UsuarioOrderByWithRelationInput
   comentarios?: Prisma.ComentarioOrderByRelationAggregateInput
   anexos?: Prisma.AnexoOrderByRelationAggregateInput
-  _relevance?: Prisma.ChamadoOrderByRelevanceInput
 }
 
 export type ChamadoWhereUniqueInput = Prisma.AtLeast<{
@@ -248,8 +247,8 @@ export type ChamadoWhereUniqueInput = Prisma.AtLeast<{
   ativo?: Prisma.BoolFilter<"Chamado"> | boolean
   criadoEm?: Prisma.DateTimeFilter<"Chamado"> | Date | string
   atualizadoEm?: Prisma.DateTimeFilter<"Chamado"> | Date | string
-  abertoPorId?: Prisma.StringFilter<"Chamado"> | string
-  atribuidoParaId?: Prisma.StringNullableFilter<"Chamado"> | string | null
+  abertoPorId?: Prisma.UuidFilter<"Chamado"> | string
+  atribuidoParaId?: Prisma.UuidNullableFilter<"Chamado"> | string | null
   abertoPor?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   atribuidoPara?: Prisma.XOR<Prisma.UsuarioNullableScalarRelationFilter, Prisma.UsuarioWhereInput> | null
   comentarios?: Prisma.ComentarioListRelationFilter
@@ -275,15 +274,15 @@ export type ChamadoScalarWhereWithAggregatesInput = {
   AND?: Prisma.ChamadoScalarWhereWithAggregatesInput | Prisma.ChamadoScalarWhereWithAggregatesInput[]
   OR?: Prisma.ChamadoScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ChamadoScalarWhereWithAggregatesInput | Prisma.ChamadoScalarWhereWithAggregatesInput[]
-  id?: Prisma.StringWithAggregatesFilter<"Chamado"> | string
+  id?: Prisma.UuidWithAggregatesFilter<"Chamado"> | string
   titulo?: Prisma.StringWithAggregatesFilter<"Chamado"> | string
   descricao?: Prisma.StringWithAggregatesFilter<"Chamado"> | string
   status?: Prisma.EnumStatusChamadoWithAggregatesFilter<"Chamado"> | $Enums.StatusChamado
   ativo?: Prisma.BoolWithAggregatesFilter<"Chamado"> | boolean
   criadoEm?: Prisma.DateTimeWithAggregatesFilter<"Chamado"> | Date | string
   atualizadoEm?: Prisma.DateTimeWithAggregatesFilter<"Chamado"> | Date | string
-  abertoPorId?: Prisma.StringWithAggregatesFilter<"Chamado"> | string
-  atribuidoParaId?: Prisma.StringNullableWithAggregatesFilter<"Chamado"> | string | null
+  abertoPorId?: Prisma.UuidWithAggregatesFilter<"Chamado"> | string
+  atribuidoParaId?: Prisma.UuidNullableWithAggregatesFilter<"Chamado"> | string | null
 }
 
 export type ChamadoCreateInput = {
@@ -384,12 +383,6 @@ export type ChamadoListRelationFilter = {
 
 export type ChamadoOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type ChamadoOrderByRelevanceInput = {
-  fields: Prisma.ChamadoOrderByRelevanceFieldEnum | Prisma.ChamadoOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type ChamadoCountOrderByAggregateInput = {
@@ -645,15 +638,15 @@ export type ChamadoScalarWhereInput = {
   AND?: Prisma.ChamadoScalarWhereInput | Prisma.ChamadoScalarWhereInput[]
   OR?: Prisma.ChamadoScalarWhereInput[]
   NOT?: Prisma.ChamadoScalarWhereInput | Prisma.ChamadoScalarWhereInput[]
-  id?: Prisma.StringFilter<"Chamado"> | string
+  id?: Prisma.UuidFilter<"Chamado"> | string
   titulo?: Prisma.StringFilter<"Chamado"> | string
   descricao?: Prisma.StringFilter<"Chamado"> | string
   status?: Prisma.EnumStatusChamadoFilter<"Chamado"> | $Enums.StatusChamado
   ativo?: Prisma.BoolFilter<"Chamado"> | boolean
   criadoEm?: Prisma.DateTimeFilter<"Chamado"> | Date | string
   atualizadoEm?: Prisma.DateTimeFilter<"Chamado"> | Date | string
-  abertoPorId?: Prisma.StringFilter<"Chamado"> | string
-  atribuidoParaId?: Prisma.StringNullableFilter<"Chamado"> | string | null
+  abertoPorId?: Prisma.UuidFilter<"Chamado"> | string
+  atribuidoParaId?: Prisma.UuidNullableFilter<"Chamado"> | string | null
 }
 
 export type ChamadoUpsertWithWhereUniqueWithoutAtribuidoParaInput = {
@@ -961,7 +954,33 @@ export type ChamadoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   _count?: boolean | Prisma.ChamadoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["chamado"]>
 
+export type ChamadoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  titulo?: boolean
+  descricao?: boolean
+  status?: boolean
+  ativo?: boolean
+  criadoEm?: boolean
+  atualizadoEm?: boolean
+  abertoPorId?: boolean
+  atribuidoParaId?: boolean
+  abertoPor?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  atribuidoPara?: boolean | Prisma.Chamado$atribuidoParaArgs<ExtArgs>
+}, ExtArgs["result"]["chamado"]>
 
+export type ChamadoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  titulo?: boolean
+  descricao?: boolean
+  status?: boolean
+  ativo?: boolean
+  criadoEm?: boolean
+  atualizadoEm?: boolean
+  abertoPorId?: boolean
+  atribuidoParaId?: boolean
+  abertoPor?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  atribuidoPara?: boolean | Prisma.Chamado$atribuidoParaArgs<ExtArgs>
+}, ExtArgs["result"]["chamado"]>
 
 export type ChamadoSelectScalar = {
   id?: boolean
@@ -982,6 +1001,14 @@ export type ChamadoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   comentarios?: boolean | Prisma.Chamado$comentariosArgs<ExtArgs>
   anexos?: boolean | Prisma.Chamado$anexosArgs<ExtArgs>
   _count?: boolean | Prisma.ChamadoCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type ChamadoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  abertoPor?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  atribuidoPara?: boolean | Prisma.Chamado$atribuidoParaArgs<ExtArgs>
+}
+export type ChamadoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  abertoPor?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  atribuidoPara?: boolean | Prisma.Chamado$atribuidoParaArgs<ExtArgs>
 }
 
 export type $ChamadoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1120,6 +1147,30 @@ export interface ChamadoDelegate<ExtArgs extends runtime.Types.Extensions.Intern
   createMany<T extends ChamadoCreateManyArgs>(args?: Prisma.SelectSubset<T, ChamadoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many Chamados and returns the data saved in the database.
+   * @param {ChamadoCreateManyAndReturnArgs} args - Arguments to create many Chamados.
+   * @example
+   * // Create many Chamados
+   * const chamado = await prisma.chamado.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many Chamados and only return the `id`
+   * const chamadoWithIdOnly = await prisma.chamado.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends ChamadoCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, ChamadoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChamadoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a Chamado.
    * @param {ChamadoDeleteArgs} args - Arguments to delete one Chamado.
    * @example
@@ -1182,6 +1233,36 @@ export interface ChamadoDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * 
    */
   updateMany<T extends ChamadoUpdateManyArgs>(args: Prisma.SelectSubset<T, ChamadoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more Chamados and returns the data updated in the database.
+   * @param {ChamadoUpdateManyAndReturnArgs} args - Arguments to update many Chamados.
+   * @example
+   * // Update many Chamados
+   * const chamado = await prisma.chamado.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more Chamados and only return the `id`
+   * const chamadoWithIdOnly = await prisma.chamado.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends ChamadoUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, ChamadoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChamadoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Chamado.
@@ -1622,6 +1703,29 @@ export type ChamadoCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * Chamado createManyAndReturn
+ */
+export type ChamadoCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Chamado
+   */
+  select?: Prisma.ChamadoSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Chamado
+   */
+  omit?: Prisma.ChamadoOmit<ExtArgs> | null
+  /**
+   * The data used to create many Chamados.
+   */
+  data: Prisma.ChamadoCreateManyInput | Prisma.ChamadoCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChamadoIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * Chamado update
  */
 export type ChamadoUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1663,6 +1767,36 @@ export type ChamadoUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Chamados to update.
    */
   limit?: number
+}
+
+/**
+ * Chamado updateManyAndReturn
+ */
+export type ChamadoUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Chamado
+   */
+  select?: Prisma.ChamadoSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Chamado
+   */
+  omit?: Prisma.ChamadoOmit<ExtArgs> | null
+  /**
+   * The data used to update Chamados.
+   */
+  data: Prisma.XOR<Prisma.ChamadoUpdateManyMutationInput, Prisma.ChamadoUncheckedUpdateManyInput>
+  /**
+   * Filter which Chamados to update
+   */
+  where?: Prisma.ChamadoWhereInput
+  /**
+   * Limit how many Chamados to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChamadoIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

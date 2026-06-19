@@ -184,12 +184,12 @@ export type ComentarioWhereInput = {
   AND?: Prisma.ComentarioWhereInput | Prisma.ComentarioWhereInput[]
   OR?: Prisma.ComentarioWhereInput[]
   NOT?: Prisma.ComentarioWhereInput | Prisma.ComentarioWhereInput[]
-  id?: Prisma.StringFilter<"Comentario"> | string
+  id?: Prisma.UuidFilter<"Comentario"> | string
   mensagem?: Prisma.StringFilter<"Comentario"> | string
   apagado?: Prisma.BoolFilter<"Comentario"> | boolean
   criadoEm?: Prisma.DateTimeFilter<"Comentario"> | Date | string
-  chamadoId?: Prisma.StringFilter<"Comentario"> | string
-  usuarioId?: Prisma.StringFilter<"Comentario"> | string
+  chamadoId?: Prisma.UuidFilter<"Comentario"> | string
+  usuarioId?: Prisma.UuidFilter<"Comentario"> | string
   chamado?: Prisma.XOR<Prisma.ChamadoScalarRelationFilter, Prisma.ChamadoWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }
@@ -203,7 +203,6 @@ export type ComentarioOrderByWithRelationInput = {
   usuarioId?: Prisma.SortOrder
   chamado?: Prisma.ChamadoOrderByWithRelationInput
   usuario?: Prisma.UsuarioOrderByWithRelationInput
-  _relevance?: Prisma.ComentarioOrderByRelevanceInput
 }
 
 export type ComentarioWhereUniqueInput = Prisma.AtLeast<{
@@ -214,8 +213,8 @@ export type ComentarioWhereUniqueInput = Prisma.AtLeast<{
   mensagem?: Prisma.StringFilter<"Comentario"> | string
   apagado?: Prisma.BoolFilter<"Comentario"> | boolean
   criadoEm?: Prisma.DateTimeFilter<"Comentario"> | Date | string
-  chamadoId?: Prisma.StringFilter<"Comentario"> | string
-  usuarioId?: Prisma.StringFilter<"Comentario"> | string
+  chamadoId?: Prisma.UuidFilter<"Comentario"> | string
+  usuarioId?: Prisma.UuidFilter<"Comentario"> | string
   chamado?: Prisma.XOR<Prisma.ChamadoScalarRelationFilter, Prisma.ChamadoWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }, "id">
@@ -236,12 +235,12 @@ export type ComentarioScalarWhereWithAggregatesInput = {
   AND?: Prisma.ComentarioScalarWhereWithAggregatesInput | Prisma.ComentarioScalarWhereWithAggregatesInput[]
   OR?: Prisma.ComentarioScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ComentarioScalarWhereWithAggregatesInput | Prisma.ComentarioScalarWhereWithAggregatesInput[]
-  id?: Prisma.StringWithAggregatesFilter<"Comentario"> | string
+  id?: Prisma.UuidWithAggregatesFilter<"Comentario"> | string
   mensagem?: Prisma.StringWithAggregatesFilter<"Comentario"> | string
   apagado?: Prisma.BoolWithAggregatesFilter<"Comentario"> | boolean
   criadoEm?: Prisma.DateTimeWithAggregatesFilter<"Comentario"> | Date | string
-  chamadoId?: Prisma.StringWithAggregatesFilter<"Comentario"> | string
-  usuarioId?: Prisma.StringWithAggregatesFilter<"Comentario"> | string
+  chamadoId?: Prisma.UuidWithAggregatesFilter<"Comentario"> | string
+  usuarioId?: Prisma.UuidWithAggregatesFilter<"Comentario"> | string
 }
 
 export type ComentarioCreateInput = {
@@ -313,12 +312,6 @@ export type ComentarioListRelationFilter = {
 
 export type ComentarioOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type ComentarioOrderByRelevanceInput = {
-  fields: Prisma.ComentarioOrderByRelevanceFieldEnum | Prisma.ComentarioOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type ComentarioCountOrderByAggregateInput = {
@@ -478,12 +471,12 @@ export type ComentarioScalarWhereInput = {
   AND?: Prisma.ComentarioScalarWhereInput | Prisma.ComentarioScalarWhereInput[]
   OR?: Prisma.ComentarioScalarWhereInput[]
   NOT?: Prisma.ComentarioScalarWhereInput | Prisma.ComentarioScalarWhereInput[]
-  id?: Prisma.StringFilter<"Comentario"> | string
+  id?: Prisma.UuidFilter<"Comentario"> | string
   mensagem?: Prisma.StringFilter<"Comentario"> | string
   apagado?: Prisma.BoolFilter<"Comentario"> | boolean
   criadoEm?: Prisma.DateTimeFilter<"Comentario"> | Date | string
-  chamadoId?: Prisma.StringFilter<"Comentario"> | string
-  usuarioId?: Prisma.StringFilter<"Comentario"> | string
+  chamadoId?: Prisma.UuidFilter<"Comentario"> | string
+  usuarioId?: Prisma.UuidFilter<"Comentario"> | string
 }
 
 export type ComentarioCreateWithoutChamadoInput = {
@@ -605,7 +598,27 @@ export type ComentarioSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["comentario"]>
 
+export type ComentarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  mensagem?: boolean
+  apagado?: boolean
+  criadoEm?: boolean
+  chamadoId?: boolean
+  usuarioId?: boolean
+  chamado?: boolean | Prisma.ChamadoDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["comentario"]>
 
+export type ComentarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  mensagem?: boolean
+  apagado?: boolean
+  criadoEm?: boolean
+  chamadoId?: boolean
+  usuarioId?: boolean
+  chamado?: boolean | Prisma.ChamadoDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["comentario"]>
 
 export type ComentarioSelectScalar = {
   id?: boolean
@@ -618,6 +631,14 @@ export type ComentarioSelectScalar = {
 
 export type ComentarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "mensagem" | "apagado" | "criadoEm" | "chamadoId" | "usuarioId", ExtArgs["result"]["comentario"]>
 export type ComentarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  chamado?: boolean | Prisma.ChamadoDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+}
+export type ComentarioIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  chamado?: boolean | Prisma.ChamadoDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+}
+export type ComentarioIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   chamado?: boolean | Prisma.ChamadoDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
@@ -753,6 +774,30 @@ export interface ComentarioDelegate<ExtArgs extends runtime.Types.Extensions.Int
   createMany<T extends ComentarioCreateManyArgs>(args?: Prisma.SelectSubset<T, ComentarioCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many Comentarios and returns the data saved in the database.
+   * @param {ComentarioCreateManyAndReturnArgs} args - Arguments to create many Comentarios.
+   * @example
+   * // Create many Comentarios
+   * const comentario = await prisma.comentario.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many Comentarios and only return the `id`
+   * const comentarioWithIdOnly = await prisma.comentario.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends ComentarioCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, ComentarioCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a Comentario.
    * @param {ComentarioDeleteArgs} args - Arguments to delete one Comentario.
    * @example
@@ -815,6 +860,36 @@ export interface ComentarioDelegate<ExtArgs extends runtime.Types.Extensions.Int
    * 
    */
   updateMany<T extends ComentarioUpdateManyArgs>(args: Prisma.SelectSubset<T, ComentarioUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more Comentarios and returns the data updated in the database.
+   * @param {ComentarioUpdateManyAndReturnArgs} args - Arguments to update many Comentarios.
+   * @example
+   * // Update many Comentarios
+   * const comentario = await prisma.comentario.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more Comentarios and only return the `id`
+   * const comentarioWithIdOnly = await prisma.comentario.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends ComentarioUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, ComentarioUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Comentario.
@@ -1250,6 +1325,29 @@ export type ComentarioCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
+ * Comentario createManyAndReturn
+ */
+export type ComentarioCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Comentario
+   */
+  select?: Prisma.ComentarioSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Comentario
+   */
+  omit?: Prisma.ComentarioOmit<ExtArgs> | null
+  /**
+   * The data used to create many Comentarios.
+   */
+  data: Prisma.ComentarioCreateManyInput | Prisma.ComentarioCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ComentarioIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * Comentario update
  */
 export type ComentarioUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1291,6 +1389,36 @@ export type ComentarioUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many Comentarios to update.
    */
   limit?: number
+}
+
+/**
+ * Comentario updateManyAndReturn
+ */
+export type ComentarioUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Comentario
+   */
+  select?: Prisma.ComentarioSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Comentario
+   */
+  omit?: Prisma.ComentarioOmit<ExtArgs> | null
+  /**
+   * The data used to update Comentarios.
+   */
+  data: Prisma.XOR<Prisma.ComentarioUpdateManyMutationInput, Prisma.ComentarioUncheckedUpdateManyInput>
+  /**
+   * Filter which Comentarios to update
+   */
+  where?: Prisma.ComentarioWhereInput
+  /**
+   * Limit how many Comentarios to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ComentarioIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

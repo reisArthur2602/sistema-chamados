@@ -184,12 +184,12 @@ export type AnexoWhereInput = {
   AND?: Prisma.AnexoWhereInput | Prisma.AnexoWhereInput[]
   OR?: Prisma.AnexoWhereInput[]
   NOT?: Prisma.AnexoWhereInput | Prisma.AnexoWhereInput[]
-  id?: Prisma.StringFilter<"Anexo"> | string
+  id?: Prisma.UuidFilter<"Anexo"> | string
   caminhoArquivo?: Prisma.StringFilter<"Anexo"> | string
   nomeArquivo?: Prisma.StringFilter<"Anexo"> | string
   criadoEm?: Prisma.DateTimeFilter<"Anexo"> | Date | string
-  chamadoId?: Prisma.StringFilter<"Anexo"> | string
-  enviadoPorId?: Prisma.StringFilter<"Anexo"> | string
+  chamadoId?: Prisma.UuidFilter<"Anexo"> | string
+  enviadoPorId?: Prisma.UuidFilter<"Anexo"> | string
   chamado?: Prisma.XOR<Prisma.ChamadoScalarRelationFilter, Prisma.ChamadoWhereInput>
   enviadoPor?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }
@@ -203,7 +203,6 @@ export type AnexoOrderByWithRelationInput = {
   enviadoPorId?: Prisma.SortOrder
   chamado?: Prisma.ChamadoOrderByWithRelationInput
   enviadoPor?: Prisma.UsuarioOrderByWithRelationInput
-  _relevance?: Prisma.AnexoOrderByRelevanceInput
 }
 
 export type AnexoWhereUniqueInput = Prisma.AtLeast<{
@@ -214,8 +213,8 @@ export type AnexoWhereUniqueInput = Prisma.AtLeast<{
   caminhoArquivo?: Prisma.StringFilter<"Anexo"> | string
   nomeArquivo?: Prisma.StringFilter<"Anexo"> | string
   criadoEm?: Prisma.DateTimeFilter<"Anexo"> | Date | string
-  chamadoId?: Prisma.StringFilter<"Anexo"> | string
-  enviadoPorId?: Prisma.StringFilter<"Anexo"> | string
+  chamadoId?: Prisma.UuidFilter<"Anexo"> | string
+  enviadoPorId?: Prisma.UuidFilter<"Anexo"> | string
   chamado?: Prisma.XOR<Prisma.ChamadoScalarRelationFilter, Prisma.ChamadoWhereInput>
   enviadoPor?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }, "id">
@@ -236,12 +235,12 @@ export type AnexoScalarWhereWithAggregatesInput = {
   AND?: Prisma.AnexoScalarWhereWithAggregatesInput | Prisma.AnexoScalarWhereWithAggregatesInput[]
   OR?: Prisma.AnexoScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AnexoScalarWhereWithAggregatesInput | Prisma.AnexoScalarWhereWithAggregatesInput[]
-  id?: Prisma.StringWithAggregatesFilter<"Anexo"> | string
+  id?: Prisma.UuidWithAggregatesFilter<"Anexo"> | string
   caminhoArquivo?: Prisma.StringWithAggregatesFilter<"Anexo"> | string
   nomeArquivo?: Prisma.StringWithAggregatesFilter<"Anexo"> | string
   criadoEm?: Prisma.DateTimeWithAggregatesFilter<"Anexo"> | Date | string
-  chamadoId?: Prisma.StringWithAggregatesFilter<"Anexo"> | string
-  enviadoPorId?: Prisma.StringWithAggregatesFilter<"Anexo"> | string
+  chamadoId?: Prisma.UuidWithAggregatesFilter<"Anexo"> | string
+  enviadoPorId?: Prisma.UuidWithAggregatesFilter<"Anexo"> | string
 }
 
 export type AnexoCreateInput = {
@@ -313,12 +312,6 @@ export type AnexoListRelationFilter = {
 
 export type AnexoOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type AnexoOrderByRelevanceInput = {
-  fields: Prisma.AnexoOrderByRelevanceFieldEnum | Prisma.AnexoOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type AnexoCountOrderByAggregateInput = {
@@ -478,12 +471,12 @@ export type AnexoScalarWhereInput = {
   AND?: Prisma.AnexoScalarWhereInput | Prisma.AnexoScalarWhereInput[]
   OR?: Prisma.AnexoScalarWhereInput[]
   NOT?: Prisma.AnexoScalarWhereInput | Prisma.AnexoScalarWhereInput[]
-  id?: Prisma.StringFilter<"Anexo"> | string
+  id?: Prisma.UuidFilter<"Anexo"> | string
   caminhoArquivo?: Prisma.StringFilter<"Anexo"> | string
   nomeArquivo?: Prisma.StringFilter<"Anexo"> | string
   criadoEm?: Prisma.DateTimeFilter<"Anexo"> | Date | string
-  chamadoId?: Prisma.StringFilter<"Anexo"> | string
-  enviadoPorId?: Prisma.StringFilter<"Anexo"> | string
+  chamadoId?: Prisma.UuidFilter<"Anexo"> | string
+  enviadoPorId?: Prisma.UuidFilter<"Anexo"> | string
 }
 
 export type AnexoCreateWithoutChamadoInput = {
@@ -605,7 +598,27 @@ export type AnexoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   enviadoPor?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["anexo"]>
 
+export type AnexoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  caminhoArquivo?: boolean
+  nomeArquivo?: boolean
+  criadoEm?: boolean
+  chamadoId?: boolean
+  enviadoPorId?: boolean
+  chamado?: boolean | Prisma.ChamadoDefaultArgs<ExtArgs>
+  enviadoPor?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["anexo"]>
 
+export type AnexoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  caminhoArquivo?: boolean
+  nomeArquivo?: boolean
+  criadoEm?: boolean
+  chamadoId?: boolean
+  enviadoPorId?: boolean
+  chamado?: boolean | Prisma.ChamadoDefaultArgs<ExtArgs>
+  enviadoPor?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["anexo"]>
 
 export type AnexoSelectScalar = {
   id?: boolean
@@ -618,6 +631,14 @@ export type AnexoSelectScalar = {
 
 export type AnexoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "caminhoArquivo" | "nomeArquivo" | "criadoEm" | "chamadoId" | "enviadoPorId", ExtArgs["result"]["anexo"]>
 export type AnexoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  chamado?: boolean | Prisma.ChamadoDefaultArgs<ExtArgs>
+  enviadoPor?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+}
+export type AnexoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  chamado?: boolean | Prisma.ChamadoDefaultArgs<ExtArgs>
+  enviadoPor?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+}
+export type AnexoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   chamado?: boolean | Prisma.ChamadoDefaultArgs<ExtArgs>
   enviadoPor?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
@@ -753,6 +774,30 @@ export interface AnexoDelegate<ExtArgs extends runtime.Types.Extensions.Internal
   createMany<T extends AnexoCreateManyArgs>(args?: Prisma.SelectSubset<T, AnexoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many Anexos and returns the data saved in the database.
+   * @param {AnexoCreateManyAndReturnArgs} args - Arguments to create many Anexos.
+   * @example
+   * // Create many Anexos
+   * const anexo = await prisma.anexo.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many Anexos and only return the `id`
+   * const anexoWithIdOnly = await prisma.anexo.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends AnexoCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, AnexoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnexoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a Anexo.
    * @param {AnexoDeleteArgs} args - Arguments to delete one Anexo.
    * @example
@@ -815,6 +860,36 @@ export interface AnexoDelegate<ExtArgs extends runtime.Types.Extensions.Internal
    * 
    */
   updateMany<T extends AnexoUpdateManyArgs>(args: Prisma.SelectSubset<T, AnexoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more Anexos and returns the data updated in the database.
+   * @param {AnexoUpdateManyAndReturnArgs} args - Arguments to update many Anexos.
+   * @example
+   * // Update many Anexos
+   * const anexo = await prisma.anexo.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more Anexos and only return the `id`
+   * const anexoWithIdOnly = await prisma.anexo.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends AnexoUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, AnexoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnexoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Anexo.
@@ -1250,6 +1325,29 @@ export type AnexoCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * Anexo createManyAndReturn
+ */
+export type AnexoCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Anexo
+   */
+  select?: Prisma.AnexoSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Anexo
+   */
+  omit?: Prisma.AnexoOmit<ExtArgs> | null
+  /**
+   * The data used to create many Anexos.
+   */
+  data: Prisma.AnexoCreateManyInput | Prisma.AnexoCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnexoIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * Anexo update
  */
 export type AnexoUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1291,6 +1389,36 @@ export type AnexoUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Anexos to update.
    */
   limit?: number
+}
+
+/**
+ * Anexo updateManyAndReturn
+ */
+export type AnexoUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Anexo
+   */
+  select?: Prisma.AnexoSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Anexo
+   */
+  omit?: Prisma.AnexoOmit<ExtArgs> | null
+  /**
+   * The data used to update Anexos.
+   */
+  data: Prisma.XOR<Prisma.AnexoUpdateManyMutationInput, Prisma.AnexoUncheckedUpdateManyInput>
+  /**
+   * Filter which Anexos to update
+   */
+  where?: Prisma.AnexoWhereInput
+  /**
+   * Limit how many Anexos to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnexoIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

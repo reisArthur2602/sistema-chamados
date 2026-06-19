@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-    provider = "mysql"
+    provider = "postgresql"
 }
 
 enum Role {
@@ -21,7 +21,7 @@ enum StatusChamado {
 }
 
 model Usuario {
-    id           String   @id @default(uuid()) @db.VarChar(36)
+    id           String   @id @default(uuid()) @db.Uuid
     nome         String   @db.VarChar(255)
     usuario      String   @unique @db.VarChar(100)
     senhaHash    String   @map("senha_hash") @db.VarChar(255)
@@ -40,16 +40,16 @@ model Usuario {
 }
 
 model Chamado {
-    id           String        @id @default(uuid()) @db.VarChar(36)
+    id           String        @id @default(uuid()) @db.Uuid
     titulo       String        @db.VarChar(255)
-    descricao    String        @db.Text
+    descricao    String
     status       StatusChamado @default(aberto)
     ativo        Boolean       @default(true)
     criadoEm     DateTime      @default(now()) @map("criado_em")
     atualizadoEm DateTime      @updatedAt @map("atualizado_em")
 
-    abertoPorId     String  @map("aberto_por") @db.VarChar(36)
-    atribuidoParaId String? @map("atribuido_para") @db.VarChar(36)
+    abertoPorId     String  @map("aberto_por") @db.Uuid
+    atribuidoParaId String? @map("atribuido_para") @db.Uuid
 
     abertoPor     Usuario  @relation("ChamadosAbertos", fields: [abertoPorId], references: [id])
     atribuidoPara Usuario? @relation("ChamadosAtribuidos", fields: [atribuidoParaId], references: [id])
@@ -61,13 +61,13 @@ model Chamado {
 }
 
 model Comentario {
-    id       String   @id @default(uuid()) @db.VarChar(36)
-    mensagem String   @db.Text
-    apagado  Boolean  @default(false)
-    criadoEm DateTime @default(now()) @map("criado_em")
+    id        String   @id @default(uuid()) @db.Uuid
+    mensagem  String
+    apagado   Boolean  @default(false)
+    criadoEm  DateTime @default(now()) @map("criado_em")
 
-    chamadoId String @map("chamado_id") @db.VarChar(36)
-    usuarioId String @map("usuario_id") @db.VarChar(36)
+    chamadoId String @map("chamado_id") @db.Uuid
+    usuarioId String @map("usuario_id") @db.Uuid
 
     chamado Chamado @relation(fields: [chamadoId], references: [id], onDelete: Cascade)
     usuario Usuario @relation(fields: [usuarioId], references: [id])
@@ -76,13 +76,13 @@ model Comentario {
 }
 
 model Anexo {
-    id             String   @id @default(uuid()) @db.VarChar(36)
+    id             String   @id @default(uuid()) @db.Uuid
     caminhoArquivo String   @map("caminho_arquivo") @db.VarChar(500)
     nomeArquivo    String   @map("nome_arquivo") @db.VarChar(255)
     criadoEm       DateTime @default(now()) @map("criado_em")
 
-    chamadoId    String @map("chamado_id") @db.VarChar(36)
-    enviadoPorId String @map("enviado_por") @db.VarChar(36)
+    chamadoId    String @map("chamado_id") @db.Uuid
+    enviadoPorId String @map("enviado_por") @db.Uuid
 
     chamado    Chamado @relation(fields: [chamadoId], references: [id], onDelete: Cascade)
     enviadoPor Usuario @relation(fields: [enviadoPorId], references: [id])
@@ -91,13 +91,13 @@ model Anexo {
 }
 
 model PushSubscription {
-    id       String   @id @default(uuid()) @db.VarChar(36)
+    id       String   @id @default(uuid()) @db.Uuid
     endpoint String   @unique @db.VarChar(500)
     p256dh   String   @db.VarChar(255)
     auth     String   @db.VarChar(100)
     criadoEm DateTime @default(now()) @map("criado_em")
 
-    usuarioId String  @map("usuario_id") @db.VarChar(36)
+    usuarioId String  @map("usuario_id") @db.Uuid
     usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
 
     @@map("push_subscriptions")

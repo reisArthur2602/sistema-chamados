@@ -147,14 +147,12 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const UsuarioOrderByRelevanceFieldEnum = {
-  id: 'id',
-  nome: 'nome',
-  usuario: 'usuario',
-  senhaHash: 'senhaHash'
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 } as const
 
-export type UsuarioOrderByRelevanceFieldEnum = (typeof UsuarioOrderByRelevanceFieldEnum)[keyof typeof UsuarioOrderByRelevanceFieldEnum]
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
 export const NullsOrder = {
@@ -163,47 +161,4 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-export const ChamadoOrderByRelevanceFieldEnum = {
-  id: 'id',
-  titulo: 'titulo',
-  descricao: 'descricao',
-  abertoPorId: 'abertoPorId',
-  atribuidoParaId: 'atribuidoParaId'
-} as const
-
-export type ChamadoOrderByRelevanceFieldEnum = (typeof ChamadoOrderByRelevanceFieldEnum)[keyof typeof ChamadoOrderByRelevanceFieldEnum]
-
-
-export const ComentarioOrderByRelevanceFieldEnum = {
-  id: 'id',
-  mensagem: 'mensagem',
-  chamadoId: 'chamadoId',
-  usuarioId: 'usuarioId'
-} as const
-
-export type ComentarioOrderByRelevanceFieldEnum = (typeof ComentarioOrderByRelevanceFieldEnum)[keyof typeof ComentarioOrderByRelevanceFieldEnum]
-
-
-export const AnexoOrderByRelevanceFieldEnum = {
-  id: 'id',
-  caminhoArquivo: 'caminhoArquivo',
-  nomeArquivo: 'nomeArquivo',
-  chamadoId: 'chamadoId',
-  enviadoPorId: 'enviadoPorId'
-} as const
-
-export type AnexoOrderByRelevanceFieldEnum = (typeof AnexoOrderByRelevanceFieldEnum)[keyof typeof AnexoOrderByRelevanceFieldEnum]
-
-
-export const PushSubscriptionOrderByRelevanceFieldEnum = {
-  id: 'id',
-  endpoint: 'endpoint',
-  p256dh: 'p256dh',
-  auth: 'auth',
-  usuarioId: 'usuarioId'
-} as const
-
-export type PushSubscriptionOrderByRelevanceFieldEnum = (typeof PushSubscriptionOrderByRelevanceFieldEnum)[keyof typeof PushSubscriptionOrderByRelevanceFieldEnum]
 

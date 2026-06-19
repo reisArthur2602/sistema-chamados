@@ -27,7 +27,7 @@ export async function login(input: LoginInput) {
 
     const user = await prisma.usuario.findUnique({
         where: { usuario: input.usuario },
-        select: { id: true, nome: true, role: true, senhaHash: true, usuario: true, ativo: true },
+        select: { id: true, senhaHash: true, ativo: true },
     });
 
     if (!user || !user.ativo) {
@@ -39,13 +39,9 @@ export async function login(input: LoginInput) {
         return { ok: false, message: 'Credenciais inválidas' };
     }
 
-    const token = sign(
-        { id: user.id, nome: user.nome, role: user.role, usuario: user.usuario },
-        env.JWT_SECRET,
-        {
-            expiresIn: '8h',
-        }
-    );
+    const token = sign({ id: user.id }, env.JWT_SECRET, {
+        expiresIn: '8h',
+    });
 
     const cookieStore = await cookies();
     cookieStore.set(SESSION_COOKIE, token, {

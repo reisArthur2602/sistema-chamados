@@ -14,7 +14,7 @@ const usuarios = [
 
 async function main() {
     for (const u of usuarios) {
-        const senhaHash = await hash(u.usuario, 10);
+        const senhaHash = await hash('masterccm02', 10);
 
         await prisma.usuario.upsert({
             where: { usuario: u.usuario },
