@@ -1,8 +1,21 @@
-import { getSession } from '@/utils/session';
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
 import { getTickets } from '../actions/get-tickets';
+import TicketsSuspense from './tickets-suspense';
 import { TicketsTable } from './tickets-table';
 
-export async function TicketsData() {
-    const [tickets, session] = await Promise.all([getTickets(), getSession()]);
-    return <TicketsTable data={tickets} currentUserId={session!.id} />;
+export function TicketsData() {
+    const {
+        data: tickets,
+        isPending,
+        isFetching,
+    } = useQuery({
+        queryKey: ['tickets'],
+        queryFn: getTickets,
+    });
+
+    if (isPending || isFetching) return <TicketsSuspense />;
+
+    return <TicketsTable data={tickets ?? []} />;
 }

@@ -1,6 +1,6 @@
-import type { Role } from '@/app/generated/enums';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import type { Role } from '@/generated/enums';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDownIcon } from 'lucide-react';
 import { UserActions } from './user-actions';
@@ -99,16 +99,14 @@ export function createUserColumns(currentUserId: string): ColumnDef<UserRow>[] {
             cell: ({ row }) => (
                 <span className="text-muted-foreground">
                     {new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short' }).format(
-                        new Date(row.getValue<string>('criadoEm')),
+                        new Date(row.getValue<string>('criadoEm'))
                     )}
                 </span>
             ),
         },
         {
             id: 'actions',
-            cell: ({ row }) => (
-                <UserActions user={row.original} currentUserId={currentUserId} />
-            ),
+            cell: ({ row }) => <UserActions user={row.original} currentUserId={currentUserId} />,
         },
     ];
 }

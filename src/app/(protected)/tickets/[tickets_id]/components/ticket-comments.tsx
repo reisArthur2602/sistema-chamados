@@ -1,16 +1,15 @@
 'use client';
 
-import type { StatusChamado } from '@/app/generated/enums';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
+import type { StatusChamado } from '@/generated/enums';
 import { formatDateTime } from '@/utils/format-date';
 import { getInitials } from '@/utils/get-initials';
-import { useQueryClient, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Trash2Icon } from 'lucide-react';
-import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { deleteComment } from '../actions/delete-comment';
 import { getComments } from '../actions/get-comments';
@@ -19,31 +18,27 @@ import { TicketCommentForm } from './ticket-comment-form';
 interface TicketCommentsProps {
     chamadoId: string;
     status: StatusChamado;
-    currentUserId: string;
 }
 
-export function TicketComments({ chamadoId, status, currentUserId }: TicketCommentsProps) {
+export function TicketComments({ chamadoId, status }: TicketCommentsProps) {
     const queryClient = useQueryClient();
-    const [isPending, startTransition] = useTransition();
 
-    const { data: comentarios = [], isLoading } = useQuery({
+    const {
+        data: comentarios = [],
+        isLoading,
+        isFetching,
+    } = useQuery({
         queryKey: ['comments', chamadoId],
         queryFn: () => getComments(chamadoId),
-        staleTime: 30_000,
+    });
+
+    const { mutate: handleDelete, isPending } = useMutation({
+        mutationFn: (comentarioId: string) => deleteComment(comentarioId),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['comments', chamadoId] }),
+        onError: () => toast.error('Erro ao apagar comentário.'),
     });
 
     const podeComentar = status === 'em_atendimento' || status === 'resolvido';
-
-    function handleDelete(comentarioId: string) {
-        startTransition(async () => {
-            try {
-                await deleteComment(comentarioId);
-                queryClient.invalidateQueries({ queryKey: ['comments', chamadoId] });
-            } catch {
-                toast.error('Erro ao apagar comentário.');
-            }
-        });
-    }
 
     return (
         <Card>
@@ -59,7 +54,7 @@ export function TicketComments({ chamadoId, status, currentUserId }: TicketComme
             </CardHeader>
             <CardContent className="space-y-4">
                 <div className="space-y-3">
-                    {isLoading ? (
+                    {isLoading || isFetching ? (
                         <div className="space-y-4">
                             {[1, 2].map((i) => (
                                 <div key={i} className="flex gap-3">
@@ -77,7 +72,7 @@ export function TicketComments({ chamadoId, status, currentUserId }: TicketComme
                         </p>
                     ) : (
                         comentarios.map((c) => {
-                            const isOwn = c.usuario.id === currentUserId;
+                            const isOwn = c.isOwn;
 
                             return (
                                 <div
@@ -90,8 +85,12 @@ export function TicketComments({ chamadoId, status, currentUserId }: TicketComme
                                         </AvatarFallback>
                                     </Avatar>
 
-                                    <div className={`flex max-w-[75%] flex-col gap-1 ${isOwn ? 'items-end' : 'items-start'}`}>
-                                        <div className={`flex items-center gap-1.5 ${isOwn ? 'flex-row-reverse' : 'flex-row'}`}>
+                                    <div
+                                        className={`flex max-w-[75%] flex-col gap-1 ${isOwn ? 'items-end' : 'items-start'}`}
+                                    >
+                                        <div
+                                            className={`flex items-center gap-1.5 ${isOwn ? 'flex-row-reverse' : 'flex-row'}`}
+                                        >
                                             <span className="text-xs font-medium">
                                                 {isOwn ? 'Você' : c.usuario.nome}
                                             </span>
@@ -107,7 +106,9 @@ export function TicketComments({ chamadoId, status, currentUserId }: TicketComme
                                                     onClick={() => handleDelete(c.id)}
                                                 >
                                                     <Trash2Icon className="size-3" />
-                                                    <span className="sr-only">Apagar comentário</span>
+                                                    <span className="sr-only">
+                                                        Apagar comentário
+                                                    </span>
                                                 </Button>
                                             )}
                                         </div>

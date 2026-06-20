@@ -1,4 +1,4 @@
-import type { StatusChamado } from '@/app/generated/enums';
+import type { StatusChamado } from '@/generated/enums';
 
 export const statusConfig: Record<StatusChamado, { label: string; className: string }> = {
     aberto: {

@@ -1,7 +1,7 @@
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { logout } from '@/utils/logout';
 import { getSession } from '@/utils/session';
+import { redirect } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 import { AppHeader } from './components/app-header';
 import { ProtectedSidebar } from './components/app-sidebar';
@@ -9,7 +9,7 @@ import { OnboardingDialog } from './components/onboarding-dialog';
 
 const ProtectedLayout = async ({ children }: PropsWithChildren) => {
     const session = await getSession();
-    if (!session) return await logout();
+    if (!session) return redirect('/login');
 
     return (
         <TooltipProvider delayDuration={0}>

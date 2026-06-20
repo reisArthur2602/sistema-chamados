@@ -1,7 +1,7 @@
-import type { StatusChamado } from '@/app/generated/enums';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import type { StatusChamado } from '@/generated/enums';
 import { formatDate } from '@/utils/format-date';
 import { statusConfig } from '@/utils/status-config';
 import type { ColumnDef } from '@tanstack/react-table';
@@ -13,11 +13,13 @@ export type TicketRow = {
     titulo: string;
     status: StatusChamado;
     criadoEm: Date;
-    abertoPor: { id: string; nome: string };
-    atribuidoPara: { id: string; nome: string } | null;
+    abertoPor: { nome: string };
+    atribuidoPara: { nome: string } | null;
+    openedByMe: boolean;
+    assignedToMe: boolean;
 };
 
-export const ticketColumns = (currentUserId: string): ColumnDef<TicketRow>[] => [
+export const ticketColumns: ColumnDef<TicketRow>[] = [
     {
         accessorKey: 'titulo',
         header: ({ column }) => (
@@ -53,15 +55,15 @@ export const ticketColumns = (currentUserId: string): ColumnDef<TicketRow>[] => 
         id: 'abertoPor',
         header: 'Aberto por',
         cell: ({ row }) => {
-            const { id, nome } = row.original.abertoPor;
+            const { openedByMe, abertoPor } = row.original;
             return (
                 <div className="flex items-center gap-2">
-                    {id === currentUserId ? (
+                    {openedByMe ? (
                         <Badge variant="secondary" className="text-xs">
                             Você
                         </Badge>
                     ) : (
-                        <span className="text-sm text-muted-foreground">{nome}</span>
+                        <span className="text-sm text-muted-foreground">{abertoPor.nome}</span>
                     )}
                 </div>
             );
@@ -71,16 +73,16 @@ export const ticketColumns = (currentUserId: string): ColumnDef<TicketRow>[] => 
         id: 'atribuidoPara',
         header: 'Atribuído para',
         cell: ({ row }) => {
-            const atribuido = row.original.atribuidoPara;
-            if (!atribuido) return <span className="text-muted-foreground">—</span>;
+            const { assignedToMe, atribuidoPara } = row.original;
+            if (!atribuidoPara) return <span className="text-muted-foreground">—</span>;
             return (
                 <div className="flex items-center gap-2">
-                    {atribuido.id === currentUserId ? (
+                    {assignedToMe ? (
                         <Badge variant="secondary" className="text-xs">
                             Você
                         </Badge>
                     ) : (
-                        <span className="text-sm text-muted-foreground">{atribuido.nome}</span>
+                        <span className="text-sm text-muted-foreground">{atribuidoPara.nome}</span>
                     )}
                 </div>
             );

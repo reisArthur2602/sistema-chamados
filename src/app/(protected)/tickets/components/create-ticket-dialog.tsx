@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import {
     Dialog,
     DialogContent,
@@ -19,14 +18,16 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import { SubmitButton } from '@/components/ui/submit-button';
 import { Textarea } from '@/components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PlusIcon } from 'lucide-react';
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { createTicket } from '../actions/create-ticket';
+import { Button } from '@/components/ui/button';
 
 const createChamadoSchema = z.object({
     titulo: z.string().min(1, 'Título obrigatório').max(255, 'Máximo 255 caracteres'),
@@ -48,15 +49,17 @@ interface CreateTicketDialogProps {
 export function CreateTicketDialog({ usuarios = [] }: CreateTicketDialogProps) {
     const [open, setOpen] = useState(false);
 
+    const methods = useForm<CreateChamadoValues>({
+        resolver: zodResolver(createChamadoSchema),
+    });
+
     const {
         register,
         control,
         handleSubmit,
         reset,
-        formState: { errors, isSubmitting },
-    } = useForm<CreateChamadoValues>({
-        resolver: zodResolver(createChamadoSchema),
-    });
+        formState: { errors },
+    } = methods;
 
     async function onSubmit(data: CreateChamadoValues) {
         await createTicket(data);
@@ -87,79 +90,83 @@ export function CreateTicketDialog({ usuarios = [] }: CreateTicketDialogProps) {
                     </DialogDescription>
                 </DialogHeader>
 
-                <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                    <FieldGroup>
-                        <Field data-invalid={!!errors.titulo}>
-                            <FieldLabel htmlFor="titulo">Título</FieldLabel>
-                            <Input
-                                id="titulo"
-                                placeholder="Descreva o problema brevemente"
-                                {...register('titulo')}
-                            />
-                            <FieldError
-                                errors={errors.titulo ? [{ message: errors.titulo.message }] : []}
-                            />
-                        </Field>
+                <FormProvider {...methods}>
+                    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                        <FieldGroup>
+                            <Field data-invalid={!!errors.titulo}>
+                                <FieldLabel htmlFor="titulo">Título</FieldLabel>
+                                <Input
+                                    id="titulo"
+                                    placeholder="Descreva o problema brevemente"
+                                    {...register('titulo')}
+                                />
+                                <FieldError
+                                    errors={
+                                        errors.titulo ? [{ message: errors.titulo.message }] : []
+                                    }
+                                />
+                            </Field>
 
-                        <Field data-invalid={!!errors.descricao}>
-                            <FieldLabel htmlFor="descricao">Descrição</FieldLabel>
-                            <Textarea
-                                id="descricao"
-                                placeholder="Descreva o problema em detalhes..."
-                                rows={4}
-                                {...register('descricao')}
-                            />
-                            <FieldError
-                                errors={
-                                    errors.descricao ? [{ message: errors.descricao.message }] : []
-                                }
-                            />
-                        </Field>
+                            <Field data-invalid={!!errors.descricao}>
+                                <FieldLabel htmlFor="descricao">Descrição</FieldLabel>
+                                <Textarea
+                                    id="descricao"
+                                    placeholder="Descreva o problema em detalhes..."
+                                    rows={4}
+                                    {...register('descricao')}
+                                />
+                                <FieldError
+                                    errors={
+                                        errors.descricao
+                                            ? [{ message: errors.descricao.message }]
+                                            : []
+                                    }
+                                />
+                            </Field>
 
-                        <Field data-invalid={!!errors.atribuidoParaId}>
-                            <FieldLabel>
-                                Atribuir para{' '}
-                                <span className="font-normal text-muted-foreground">
-                                    (opcional)
-                                </span>
-                            </FieldLabel>
-                            <Controller
-                                name="atribuidoParaId"
-                                control={control}
-                                render={({ field }) => (
-                                    <Select
-                                        value={field.value}
-                                        onValueChange={field.onChange}
-                                        disabled={usuarios.length === 0}
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue
-                                                placeholder={
-                                                    usuarios.length === 0
-                                                        ? 'Nenhum usuário disponível'
-                                                        : 'Selecione um responsável'
-                                                }
-                                            />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {usuarios.map((u) => (
-                                                <SelectItem key={u.id} value={u.id}>
-                                                    {u.nome}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                )}
-                            />
-                        </Field>
-                    </FieldGroup>
+                            <Field data-invalid={!!errors.atribuidoParaId}>
+                                <FieldLabel>
+                                    Atribuir para{' '}
+                                    <span className="font-normal text-muted-foreground">
+                                        (opcional)
+                                    </span>
+                                </FieldLabel>
+                                <Controller
+                                    name="atribuidoParaId"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Select
+                                            value={field.value}
+                                            onValueChange={field.onChange}
+                                            disabled={usuarios.length === 0}
+                                        >
+                                            <SelectTrigger>
+                                                <SelectValue
+                                                    placeholder={
+                                                        usuarios.length === 0
+                                                            ? 'Nenhum usuário disponível'
+                                                            : 'Selecione um responsável'
+                                                    }
+                                                />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {usuarios.map((u) => (
+                                                    <SelectItem key={u.id} value={u.id}>
+                                                        {u.nome}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    )}
+                                />
+                            </Field>
+                        </FieldGroup>
 
-                    <DialogFooter className="mt-6" showCloseButton>
-                        <Button type="submit" disabled={isSubmitting}>
-                            {isSubmitting ? 'Criando...' : 'Criar chamado'}
-                        </Button>
-                    </DialogFooter>
-                </form>
+                        <DialogFooter className="mt-6" showCloseButton>
+                            <SubmitButton>Criar chamado</SubmitButton>
+                        </DialogFooter>
+                    </form>
+                </FormProvider>
             </DialogContent>
         </Dialog>
     );

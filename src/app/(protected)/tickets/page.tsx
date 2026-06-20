@@ -3,9 +3,6 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { CreateTicketDialogData } from './components/create-ticket-dialog-data';
 import { TicketsData } from './components/tickets-data';
-import TicketsSuspense from './components/tickets-suspense';
-
-export const revalidate = 60;
 
 export const metadata: Metadata = {
     title: 'Chamados',
@@ -27,9 +24,7 @@ export default function TicketsPage() {
                 </Suspense>
             </div>
 
-            <Suspense fallback={<TicketsSuspense />}>
-                <TicketsData />
-            </Suspense>
+            <TicketsData />
         </div>
     );
 }

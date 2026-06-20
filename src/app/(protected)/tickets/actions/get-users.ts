@@ -4,10 +4,10 @@ import { prisma } from '@/lib/prisma';
 import { requireAuth } from '@/utils/require-auth';
 
 export const getUsers = async () => {
-    await requireAuth();
+    const session = await requireAuth();
 
     return prisma.usuario.findMany({
-        where: { ativo: true },
+        where: { ativo: true, NOT: { id: session.id } },
         select: { id: true, nome: true },
         orderBy: { nome: 'asc' },
     });

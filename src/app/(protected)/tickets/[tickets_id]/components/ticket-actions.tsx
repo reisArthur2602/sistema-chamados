@@ -1,9 +1,9 @@
 'use client';
 
-import type { StatusChamado } from '@/app/generated/enums';
 import { Button } from '@/components/ui/button';
+import type { StatusChamado } from '@/generated/enums';
+import { useMutation } from '@tanstack/react-query';
 import { CheckIcon, XIcon } from 'lucide-react';
-import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { updateTicketStatus } from '../actions/update-ticket-status';
 
@@ -17,34 +17,24 @@ const labels: Partial<Record<StatusChamado, string>> = {
 interface TicketActionsProps {
     id: string;
     status: StatusChamado;
-    openedById: string;
-    currentUserId: string;
+    openedByMe: boolean;
 }
 
-export function TicketActions({ id, status, openedById, currentUserId }: TicketActionsProps) {
-    const [isPending, startTransition] = useTransition();
+export function TicketActions({ id, status, openedByMe }: TicketActionsProps) {
+    const { mutate, isPending } = useMutation({
+        mutationFn: (next: StatusChamado) => updateTicketStatus(id, next),
+        onSuccess: (_, next) => toast.success(`Chamado ${labels[next]}.`),
+        onError: () => toast.error('Erro ao atualizar status.'),
+    });
 
-    function handleAction(next: StatusChamado) {
-        startTransition(async () => {
-            try {
-                await updateTicketStatus(id, next);
-                toast.success(`Chamado ${labels[next]}.`);
-            } catch {
-                toast.error('Erro ao atualizar status.');
-            }
-        });
-    }
-
-    const isOwner = currentUserId === openedById;
-
-    if (isOwner) {
+    if (openedByMe) {
         if (status === 'fechado' || status === 'cancelado') return null;
         return (
             <Button
                 variant="outline"
                 className="text-destructive hover:text-destructive"
                 disabled={isPending}
-                onClick={() => handleAction('cancelado')}
+                onClick={() => mutate('cancelado')}
             >
                 <XIcon className="size-4" />
                 Cancelar chamado
@@ -54,7 +44,7 @@ export function TicketActions({ id, status, openedById, currentUserId }: TicketA
 
     if (status === 'aberto') {
         return (
-            <Button disabled={isPending} onClick={() => handleAction('em_atendimento')}>
+            <Button disabled={isPending} onClick={() => mutate('em_atendimento')}>
                 <CheckIcon className="size-4" />
                 Aceitar chamado
             </Button>
@@ -63,7 +53,7 @@ export function TicketActions({ id, status, openedById, currentUserId }: TicketA
 
     if (status === 'em_atendimento') {
         return (
-            <Button disabled={isPending} onClick={() => handleAction('resolvido')}>
+            <Button disabled={isPending} onClick={() => mutate('resolvido')}>
                 <CheckIcon className="size-4" />
                 Finalizar chamado
             </Button>
@@ -77,12 +67,12 @@ export function TicketActions({ id, status, openedById, currentUserId }: TicketA
                     variant="outline"
                     className="text-destructive hover:text-destructive"
                     disabled={isPending}
-                    onClick={() => handleAction('cancelado')}
+                    onClick={() => mutate('cancelado')}
                 >
                     <XIcon className="size-4" />
                     Cancelar
                 </Button>
-                <Button disabled={isPending} onClick={() => handleAction('fechado')}>
+                <Button disabled={isPending} onClick={() => mutate('fechado')}>
                     <CheckIcon className="size-4" />
                     Aprovar
                 </Button>

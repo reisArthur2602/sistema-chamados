@@ -17,8 +17,10 @@ export async function getTicket(id: string) {
             status: true,
             criadoEm: true,
             atualizadoEm: true,
-            abertoPor: { select: { id: true, nome: true, usuario: true } },
-            atribuidoPara: { select: { id: true, nome: true, usuario: true } },
+            abertoPorId: true,
+            abertoPor: { select: { nome: true, usuario: true } },
+            atribuidoParaId: true,
+            atribuidoPara: { select: { nome: true, usuario: true } },
             anexos: {
                 select: {
                     id: true,
@@ -36,11 +38,16 @@ export async function getTicket(id: string) {
 
     if (
         session.role === 'Membro' &&
-        chamado.abertoPor.id !== session.id &&
-        chamado.atribuidoPara?.id !== session.id
+        chamado.abertoPorId !== session.id &&
+        chamado.atribuidoParaId !== session.id
     ) {
         notFound();
     }
 
-    return chamado;
+    const { abertoPorId, atribuidoParaId, ...rest } = chamado;
+
+    return {
+        ...rest,
+        openedByMe: abertoPorId === session.id,
+    };
 }

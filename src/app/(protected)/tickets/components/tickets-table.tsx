@@ -1,6 +1,5 @@
 'use client';
 
-import { type StatusChamado } from '@/app/generated/enums';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -18,19 +17,20 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
+import { StatusChamado } from '@/generated/enums';
 import {
-    type ColumnFiltersState,
-    type PaginationState,
-    type SortingState,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
     useReactTable,
+    type ColumnFiltersState,
+    type PaginationState,
+    type SortingState,
 } from '@tanstack/react-table';
 import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { ticketColumns, type TicketRow } from './tickets-columns';
 
 const statusOptions: { value: StatusChamado | 'todos'; label: string }[] = [
@@ -42,20 +42,17 @@ const statusOptions: { value: StatusChamado | 'todos'; label: string }[] = [
 
 interface TicketsTableProps {
     data: TicketRow[];
-    currentUserId: string;
 }
 
-export function TicketsTable({ data, currentUserId }: TicketsTableProps) {
+export function TicketsTable({ data }: TicketsTableProps) {
     const [sorting, setSorting] = useState<SortingState>([{ id: 'criadoEm', desc: true }]);
     const [globalFilter, setGlobalFilter] = useState('');
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
 
-    const columns = useMemo(() => ticketColumns(currentUserId), [currentUserId]);
-
     const table = useReactTable({
         data,
-        columns,
+        columns: ticketColumns,
         state: { sorting, globalFilter, columnFilters, pagination },
         onSortingChange: setSorting,
         onGlobalFilterChange: setGlobalFilter,
@@ -91,7 +88,10 @@ export function TicketsTable({ data, currentUserId }: TicketsTableProps) {
                         className="pl-8"
                     />
                 </div>
-                <Select value={statusAtivo} onValueChange={(v) => handleStatus(v as StatusChamado | 'todos')}>
+                <Select
+                    value={statusAtivo}
+                    onValueChange={(v) => handleStatus(v as StatusChamado | 'todos')}
+                >
                     <SelectTrigger className="w-full sm:w-48">
                         <SelectValue placeholder="Status" />
                     </SelectTrigger>
@@ -140,7 +140,7 @@ export function TicketsTable({ data, currentUserId }: TicketsTableProps) {
                         ) : (
                             <TableRow>
                                 <TableCell
-                                    colSpan={columns.length}
+                                    colSpan={ticketColumns.length}
                                     className="h-32 text-center text-muted-foreground"
                                 >
                                     Nenhum chamado encontrado.

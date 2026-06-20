@@ -1,9 +1,9 @@
-import { cookies } from 'next/headers';
 import { verify } from 'jsonwebtoken';
+import { cookies } from 'next/headers';
 
-import { Role } from '@/app/generated/enums';
 import { SESSION_COOKIE } from '@/constants';
 import { env } from '@/env';
+import { Role } from '@/generated/enums';
 import { prisma } from '@/lib/prisma';
 
 export type SessionPayload = {
@@ -31,7 +31,7 @@ export const getSession = async () => {
         select: { id: true, nome: true, usuario: true, role: true },
     });
 
-    if (!user) return null;
+    if (!user) cookieStore.delete(SESSION_COOKIE);
 
     return user;
 };

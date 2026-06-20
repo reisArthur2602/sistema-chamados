@@ -1,12 +1,10 @@
 import { prisma } from '@/lib/prisma';
-import { requireAuth } from '@/utils/require-auth';
-import { randomUUID } from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
-    await requireAuth();
     try {
         const body = await req.json();
+
         const { endpoint, keys, usuarioId } = body as {
             endpoint: string;
             keys: { p256dh: string; auth: string };
@@ -21,7 +19,6 @@ export async function POST(req: NextRequest) {
             where: { endpoint },
             update: { p256dh: keys.p256dh, auth: keys.auth, usuarioId },
             create: {
-                id: randomUUID(),
                 endpoint,
                 p256dh: keys.p256dh,
                 auth: keys.auth,

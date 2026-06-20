@@ -1,6 +1,6 @@
 'use server';
 
-import type { Role } from '@/app/generated/enums';
+import type { Role } from '@/generated/enums';
 import { prisma } from '@/lib/prisma';
 import { requirePermission } from '@/utils/require-permission';
 import bcrypt from 'bcryptjs';

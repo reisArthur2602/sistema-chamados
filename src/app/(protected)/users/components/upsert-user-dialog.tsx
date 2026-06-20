@@ -1,6 +1,5 @@
 'use client';
 
-import { Role } from '@/app/generated/enums';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -20,10 +19,12 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import { SubmitButton } from '@/components/ui/submit-button';
+import { Role } from '@/generated/enums';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EyeIcon, EyeOffIcon, UserPlusIcon } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import slugify from 'slugify';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -40,7 +41,11 @@ const baseFields = {
 };
 
 const createSchema = z
-    .object({ ...baseFields, senha: z.string().min(8, 'Mínimo 8 caracteres'), confirmarSenha: z.string().min(1, 'Confirme a senha') })
+    .object({
+        ...baseFields,
+        senha: z.string().min(8, 'Mínimo 8 caracteres'),
+        confirmarSenha: z.string().min(1, 'Confirme a senha'),
+    })
     .refine((d) => d.senha === d.confirmarSenha, {
         message: 'As senhas não coincidem',
         path: ['confirmarSenha'],
@@ -68,7 +73,11 @@ interface UpsertUserDialogProps {
     onOpenChange?: (open: boolean) => void;
 }
 
-export function UpsertUserDialog({ user, open: controlledOpen, onOpenChange: controlledOnOpenChange }: UpsertUserDialogProps) {
+export function UpsertUserDialog({
+    user,
+    open: controlledOpen,
+    onOpenChange: controlledOnOpenChange,
+}: UpsertUserDialogProps) {
     const isEdit = !!user;
 
     const [internalOpen, setInternalOpen] = useState(false);
@@ -83,15 +92,7 @@ export function UpsertUserDialog({ user, open: controlledOpen, onOpenChange: con
 
     const schema = useMemo(() => (isEdit ? editSchema : createSchema), [isEdit]);
 
-    const {
-        register,
-        control,
-        handleSubmit,
-        reset,
-        watch,
-        setValue,
-        formState: { errors, isSubmitting },
-    } = useForm<FormValues>({
+    const methods = useForm<FormValues>({
         resolver: zodResolver(schema),
         defaultValues: {
             nome: user?.nome ?? '',
@@ -102,13 +103,25 @@ export function UpsertUserDialog({ user, open: controlledOpen, onOpenChange: con
         },
     });
 
+    const {
+        register,
+        control,
+        handleSubmit,
+        reset,
+        watch,
+        setValue,
+        formState: { errors },
+    } = methods;
+
     const nome = watch('nome');
 
     useEffect(() => {
         if (isEdit) return;
-        setValue('usuario', nome ? slugify(nome, { replacement: '.', lower: true, strict: true }) : '', {
-            shouldValidate: false,
-        });
+        setValue(
+            'usuario',
+            nome ? slugify(nome, { replacement: '.', lower: true, strict: true }) : '',
+            { shouldValidate: false },
+        );
     }, [nome, setValue, isEdit]);
 
     useEffect(() => {
@@ -129,7 +142,12 @@ export function UpsertUserDialog({ user, open: controlledOpen, onOpenChange: con
                 await updateUser(user!.id, { nome: data.nome, role: data.role });
                 toast.success('Usuário atualizado.');
             } else {
-                await createUser({ nome: data.nome, usuario: data.usuario, role: data.role, senha: data.senha });
+                await createUser({
+                    nome: data.nome,
+                    usuario: data.usuario,
+                    role: data.role,
+                    senha: data.senha,
+                });
                 toast.success('Usuário criado com sucesso!');
             }
             setOpen(false);
@@ -151,101 +169,127 @@ export function UpsertUserDialog({ user, open: controlledOpen, onOpenChange: con
                 )}
             </DialogHeader>
 
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                <div className="grid grid-cols-1 gap-x-4 gap-y-5 sm:grid-cols-2">
-                    <Field className="col-span-2" data-invalid={!!errors.nome}>
-                        <FieldLabel htmlFor="upsert-nome">Nome completo</FieldLabel>
-                        <Input id="upsert-nome" placeholder="Ex: João Silva" {...register('nome')} />
-                        <FieldError errors={errors.nome ? [{ message: errors.nome.message }] : []} />
-                    </Field>
+            <FormProvider {...methods}>
+                <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                    <div className="grid grid-cols-1 gap-x-4 gap-y-5 sm:grid-cols-2">
+                        <Field className="col-span-2" data-invalid={!!errors.nome}>
+                            <FieldLabel htmlFor="upsert-nome">Nome completo</FieldLabel>
+                            <Input
+                                id="upsert-nome"
+                                placeholder="Ex: João Silva"
+                                {...register('nome')}
+                            />
+                            <FieldError
+                                errors={errors.nome ? [{ message: errors.nome.message }] : []}
+                            />
+                        </Field>
 
-                    <Field>
-                        <FieldLabel htmlFor="upsert-usuario">Usuário</FieldLabel>
-                        <Input
-                            id="upsert-usuario"
-                            placeholder="joao.silva"
-                            disabled
-                            {...register('usuario')}
-                        />
-                    </Field>
+                        <Field>
+                            <FieldLabel htmlFor="upsert-usuario">Usuário</FieldLabel>
+                            <Input
+                                id="upsert-usuario"
+                                placeholder="joao.silva"
+                                disabled
+                                {...register('usuario')}
+                            />
+                        </Field>
 
-                    <Field data-invalid={!!errors.role}>
-                        <FieldLabel>Papel</FieldLabel>
-                        <Controller
-                            name="role"
-                            control={control}
-                            render={({ field }) => (
-                                <Select value={field.value} onValueChange={field.onChange}>
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Selecione o papel" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="Membro">Membro</SelectItem>
-                                        <SelectItem value="Admin">Admin</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            )}
-                        />
-                        <FieldError errors={errors.role ? [{ message: errors.role.message }] : []} />
-                    </Field>
+                        <Field data-invalid={!!errors.role}>
+                            <FieldLabel>Papel</FieldLabel>
+                            <Controller
+                                name="role"
+                                control={control}
+                                render={({ field }) => (
+                                    <Select value={field.value} onValueChange={field.onChange}>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Selecione o papel" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="Membro">Membro</SelectItem>
+                                            <SelectItem value="Admin">Admin</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                )}
+                            />
+                            <FieldError
+                                errors={errors.role ? [{ message: errors.role.message }] : []}
+                            />
+                        </Field>
 
-                    {!isEdit && (
-                        <>
-                            <Field data-invalid={!!errors.senha}>
-                                <FieldLabel htmlFor="upsert-senha">Senha</FieldLabel>
-                                <div className="relative">
-                                    <Input
-                                        id="upsert-senha"
-                                        type={showSenha ? 'text' : 'password'}
-                                        placeholder="Mínimo 8 caracteres"
-                                        className="pr-9"
-                                        {...register('senha')}
+                        {!isEdit && (
+                            <>
+                                <Field data-invalid={!!errors.senha}>
+                                    <FieldLabel htmlFor="upsert-senha">Senha</FieldLabel>
+                                    <div className="relative">
+                                        <Input
+                                            id="upsert-senha"
+                                            type={showSenha ? 'text' : 'password'}
+                                            placeholder="Mínimo 8 caracteres"
+                                            className="pr-9"
+                                            {...register('senha')}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowSenha((v) => !v)}
+                                            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                                            tabIndex={-1}
+                                        >
+                                            {showSenha ? (
+                                                <EyeOffIcon className="size-4" />
+                                            ) : (
+                                                <EyeIcon className="size-4" />
+                                            )}
+                                        </button>
+                                    </div>
+                                    <FieldError
+                                        errors={
+                                            errors.senha ? [{ message: errors.senha.message }] : []
+                                        }
                                     />
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowSenha((v) => !v)}
-                                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                                        tabIndex={-1}
-                                    >
-                                        {showSenha ? <EyeOffIcon className="size-4" /> : <EyeIcon className="size-4" />}
-                                    </button>
-                                </div>
-                                <FieldError errors={errors.senha ? [{ message: errors.senha.message }] : []} />
-                            </Field>
+                                </Field>
 
-                            <Field data-invalid={!!errors.confirmarSenha}>
-                                <FieldLabel htmlFor="upsert-confirmar">Confirmar senha</FieldLabel>
-                                <div className="relative">
-                                    <Input
-                                        id="upsert-confirmar"
-                                        type={showConfirmar ? 'text' : 'password'}
-                                        placeholder="Repita a senha"
-                                        className="pr-9"
-                                        {...register('confirmarSenha')}
+                                <Field data-invalid={!!errors.confirmarSenha}>
+                                    <FieldLabel htmlFor="upsert-confirmar">
+                                        Confirmar senha
+                                    </FieldLabel>
+                                    <div className="relative">
+                                        <Input
+                                            id="upsert-confirmar"
+                                            type={showConfirmar ? 'text' : 'password'}
+                                            placeholder="Repita a senha"
+                                            className="pr-9"
+                                            {...register('confirmarSenha')}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowConfirmar((v) => !v)}
+                                            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                                            tabIndex={-1}
+                                        >
+                                            {showConfirmar ? (
+                                                <EyeOffIcon className="size-4" />
+                                            ) : (
+                                                <EyeIcon className="size-4" />
+                                            )}
+                                        </button>
+                                    </div>
+                                    <FieldError
+                                        errors={
+                                            errors.confirmarSenha
+                                                ? [{ message: errors.confirmarSenha.message }]
+                                                : []
+                                        }
                                     />
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowConfirmar((v) => !v)}
-                                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                                        tabIndex={-1}
-                                    >
-                                        {showConfirmar ? <EyeOffIcon className="size-4" /> : <EyeIcon className="size-4" />}
-                                    </button>
-                                </div>
-                                <FieldError errors={errors.confirmarSenha ? [{ message: errors.confirmarSenha.message }] : []} />
-                            </Field>
-                        </>
-                    )}
-                </div>
+                                </Field>
+                            </>
+                        )}
+                    </div>
 
-                <DialogFooter className="mt-6" showCloseButton>
-                    <Button type="submit" disabled={isSubmitting}>
-                        {isSubmitting
-                            ? isEdit ? 'Salvando...' : 'Criando...'
-                            : isEdit ? 'Salvar' : 'Criar usuário'}
-                    </Button>
-                </DialogFooter>
-            </form>
+                    <DialogFooter className="mt-6" showCloseButton>
+                        <SubmitButton>{isEdit ? 'Salvar' : 'Criar usuário'}</SubmitButton>
+                    </DialogFooter>
+                </form>
+            </FormProvider>
         </DialogContent>
     );
 

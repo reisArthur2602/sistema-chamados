@@ -1,14 +1,14 @@
 'use client';
 
 import { LogoMark } from '@/components/logo';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
+import { SubmitButton } from '@/components/ui/submit-button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { login } from '../actions/login';
@@ -23,13 +23,15 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export function LoginForm() {
     const router = useRouter();
 
+    const methods = useForm<LoginFormValues>({
+        resolver: zodResolver(loginSchema),
+    });
+
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitting },
-    } = useForm<LoginFormValues>({
-        resolver: zodResolver(loginSchema),
-    });
+        formState: { errors },
+    } = methods;
 
     async function onSubmit(data: LoginFormValues) {
         const result = await login(data);
@@ -42,7 +44,7 @@ export function LoginForm() {
     }
 
     return (
-        <Card className="w-full shadow-lg border-border/60">
+        <Card className="w-full border-border/60 shadow-lg">
             <CardHeader className="items-center pb-4 text-center">
                 <Link href="/">
                     <LogoMark size={44} className="mx-auto" />
@@ -51,41 +53,43 @@ export function LoginForm() {
                 <CardDescription>Acesse com suas credenciais</CardDescription>
             </CardHeader>
             <CardContent>
-                <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                    <FieldGroup>
-                        <Field data-invalid={!!errors.usuario}>
-                            <FieldLabel htmlFor="usuario">Usuário</FieldLabel>
-                            <Input
-                                id="usuario"
-                                type="text"
-                                autoComplete="username"
-                                placeholder="@arthur.reis"
-                                {...register('usuario')}
-                            />
-                            <FieldError
-                                errors={errors.usuario ? [{ message: errors.usuario.message }] : []}
-                            />
-                        </Field>
+                <FormProvider {...methods}>
+                    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                        <FieldGroup>
+                            <Field data-invalid={!!errors.usuario}>
+                                <FieldLabel htmlFor="usuario">Usuário</FieldLabel>
+                                <Input
+                                    id="usuario"
+                                    type="text"
+                                    autoComplete="username"
+                                    placeholder="@arthur.reis"
+                                    {...register('usuario')}
+                                />
+                                <FieldError
+                                    errors={
+                                        errors.usuario ? [{ message: errors.usuario.message }] : []
+                                    }
+                                />
+                            </Field>
 
-                        <Field data-invalid={!!errors.senha}>
-                            <FieldLabel htmlFor="senha">Senha</FieldLabel>
-                            <Input
-                                id="senha"
-                                type="password"
-                                autoComplete="current-password"
-                                placeholder="••••••••"
-                                {...register('senha')}
-                            />
-                            <FieldError
-                                errors={errors.senha ? [{ message: errors.senha.message }] : []}
-                            />
-                        </Field>
+                            <Field data-invalid={!!errors.senha}>
+                                <FieldLabel htmlFor="senha">Senha</FieldLabel>
+                                <Input
+                                    id="senha"
+                                    type="password"
+                                    autoComplete="current-password"
+                                    placeholder="••••••••"
+                                    {...register('senha')}
+                                />
+                                <FieldError
+                                    errors={errors.senha ? [{ message: errors.senha.message }] : []}
+                                />
+                            </Field>
 
-                        <Button type="submit" className="w-full" disabled={isSubmitting}>
-                            {isSubmitting ? 'Entrando...' : 'Entrar'}
-                        </Button>
-                    </FieldGroup>
-                </form>
+                            <SubmitButton className="w-full">Entrar</SubmitButton>
+                        </FieldGroup>
+                    </form>
+                </FormProvider>
             </CardContent>
         </Card>
     );

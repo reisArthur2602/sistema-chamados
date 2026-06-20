@@ -1,7 +1,7 @@
-import type { StatusChamado } from '@/app/generated/enums';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import type { StatusChamado } from '@/generated/enums';
 import { formatDateTime } from '@/utils/format-date';
 import { statusConfig } from '@/utils/status-config';
 
@@ -13,7 +13,13 @@ interface TicketInfoProps {
     atualizadoEm: Date;
 }
 
-export function TicketInfo({ status, abertoPor, atribuidoPara, criadoEm, atualizadoEm }: TicketInfoProps) {
+export function TicketInfo({
+    status,
+    abertoPor,
+    atribuidoPara,
+    criadoEm,
+    atualizadoEm,
+}: TicketInfoProps) {
     const { label, className } = statusConfig[status];
 
     return (

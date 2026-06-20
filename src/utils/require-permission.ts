@@ -1,4 +1,4 @@
-import { Role } from '@/app/generated/enums';
+import { Role } from '@/generated/enums';
 import { getSession } from '@/utils/session';
 import { canPermission } from './can-permission';
 

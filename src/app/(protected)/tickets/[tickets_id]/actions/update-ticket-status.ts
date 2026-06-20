@@ -1,6 +1,6 @@
 'use server';
 
-import type { StatusChamado } from '@/app/generated/enums';
+import type { StatusChamado } from '@/generated/enums';
 import { prisma } from '@/lib/prisma';
 import { sendPushToUser } from '@/lib/web-push';
 import { requireAuth } from '@/utils/require-auth';
@@ -31,7 +31,7 @@ export async function updateTicketStatus(id: string, status: StatusChamado) {
                 title: 'Chamado atualizado',
                 body: `"${ticket.titulo}" — ${statusConfig[status].label}`,
                 url: `/tickets/${id}`,
-            }),
-        ),
+            })
+        )
     );
 }

@@ -9,7 +9,8 @@ export type TicketComment = {
     mensagem: string;
     apagado: boolean;
     criadoEm: Date;
-    usuario: { id: string; nome: string; usuario: string };
+    isOwn: boolean;
+    usuario: { nome: string; usuario: string };
 };
 
 export async function getComments(chamadoId: string): Promise<TicketComment[]> {
@@ -30,7 +31,7 @@ export async function getComments(chamadoId: string): Promise<TicketComment[]> {
         notFound();
     }
 
-    return prisma.comentario.findMany({
+    const comentarios = await prisma.comentario.findMany({
         where: { chamadoId },
         select: {
             id: true,
@@ -41,4 +42,10 @@ export async function getComments(chamadoId: string): Promise<TicketComment[]> {
         },
         orderBy: { criadoEm: 'asc' },
     });
+
+    return comentarios.map(({ usuario, ...c }) => ({
+        ...c,
+        isOwn: usuario.id === session.id,
+        usuario: { nome: usuario.nome, usuario: usuario.usuario },
+    }));
 }
